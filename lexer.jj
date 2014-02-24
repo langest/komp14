@@ -16,6 +16,24 @@ public class SyntaxChecker {
     }
 }
 
+//Skip whitespace in input
+SKIP: { " " | "\r" | "\n" | "\t" }
+
+//Operators
+TOKEN: {
+		< PLUS:		"+" >
+	|	<	MINUS:	"-" >
+	| < MUL: 		"*" >
+	| < DIV:		"/" >
+}
+
+//Keywords
+TOKEN: {
+		< IF:		"if" >
+	| < THEN:	"then" >
+	| < ELSE:	"else" >
+}
+
 PARSER_END(SyntaxChecker)
 
 SKIP:  { " " | "\t" | "\n" | "\r"}
