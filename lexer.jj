@@ -1,0 +1,22 @@
+PARSER_BEGIN(SyntaxChecker)
+
+import java.util.*;
+import java.io.*;
+
+public class SyntaxChecker {
+
+    public static List<Token> parseTokens() {
+        ArrayList<Token> tokens = new ArrayList<Token>();
+        while (true) {
+            Token t = SyntaxChecker.getNextToken();
+            if (t.kind == SyntaxCheckerConstants.EOF) break;
+            tokens.add(t);
+        }
+        return tokens;
+    }
+}
+
+PARSER_END(SyntaxChecker)
+
+SKIP:  { " " | "\t" | "\n" | "\r"}
+TOKEN: { <HEJ: "hej"> | <PLUS: "+"> }
