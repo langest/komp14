@@ -1,7 +1,5 @@
 PARSER_BEGIN(SyntaxChecker)
 
-PARSER_END(SyntaxChecker)
-
 import java.util.*;
 import java.io.*;
 
@@ -17,6 +15,8 @@ public class SyntaxChecker {
         return tokens;
     }
 }
+
+PARSER_END(SyntaxChecker)
 
 //Skip white space
 SKIP :
