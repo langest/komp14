@@ -57,6 +57,7 @@ TOKEN :
 TOKEN : {
 	< PLUS: "+" >
 | < MINUS: "-" >
+| < MULT: "*" >
 | < ASSIGN: "=" >
 }
 
@@ -89,6 +90,13 @@ TOKEN : {
 TOKEN : 
 {
   < INTEGER_LITERAL: ( ["1"-"9"] (["0"-"9"])* | "0" ) >
+}
+
+//Lexicals
+TOKEN : {
+	< ID: ["a"-"z""A"-"Z""_"]["a"-"z""A"-"Z""0"-"9""_"]*
+| < INT_LIT: 0 | ["1"-"9"]["0"-"9"]* >
+//| < LONG_LIT: 0["l""L"] | ["1"-"9"]["0"-"9"]*["l""L"] >
 }
 
 //Identifiers
