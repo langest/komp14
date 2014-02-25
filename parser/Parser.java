@@ -342,6 +342,8 @@ public class Parser {
 				ExpList();
 				eat(LexerConstants.RPAREN);
 				F2();
+			} else {
+				fail();
 			}
 		} else {
 			
