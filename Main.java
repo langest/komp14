@@ -1,4 +1,5 @@
 import java.util.*;
+import parser.*;
 import java.io.*;
 import lexer.*;
 
@@ -12,5 +13,13 @@ public class Main {
 			System.out.println(t + " (" + t.kind + ")");
 		}
 		System.out.println("END TOKENS");
+		
+		Parser parser = new Parser(tokens);
+		try {
+			parser.parse();
+		} catch (RuntimeException e) {
+			System.err.println("Syntax error");
+			e.printStackTrace();
+		}
 	}
 }
