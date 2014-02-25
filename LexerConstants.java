@@ -43,47 +43,49 @@ public interface LexerConstants {
   /** RegularExpression Id. */
   int MINUS = 22;
   /** RegularExpression Id. */
-  int ASSIGN = 23;
+  int MULT = 23;
   /** RegularExpression Id. */
-  int WHILE = 24;
+  int ASSIGN = 24;
   /** RegularExpression Id. */
-  int IF = 25;
+  int WHILE = 25;
   /** RegularExpression Id. */
-  int ELSE = 26;
+  int IF = 26;
   /** RegularExpression Id. */
-  int MAIN = 27;
+  int ELSE = 27;
   /** RegularExpression Id. */
-  int CLASS = 28;
+  int MAIN = 28;
   /** RegularExpression Id. */
-  int PUBLIC = 29;
+  int CLASS = 29;
   /** RegularExpression Id. */
-  int STATIC = 30;
+  int PUBLIC = 30;
   /** RegularExpression Id. */
-  int VOID = 31;
+  int STATIC = 31;
   /** RegularExpression Id. */
-  int PRINT = 32;
+  int VOID = 32;
   /** RegularExpression Id. */
-  int TRUE = 33;
+  int PRINT = 33;
   /** RegularExpression Id. */
-  int FALSE = 34;
+  int TRUE = 34;
   /** RegularExpression Id. */
-  int THIS = 35;
+  int FALSE = 35;
   /** RegularExpression Id. */
-  int RETURN = 36;
+  int THIS = 36;
   /** RegularExpression Id. */
-  int NEW = 37;
+  int RETURN = 37;
   /** RegularExpression Id. */
-  int LENGTH = 38;
+  int NEW = 38;
   /** RegularExpression Id. */
-  int BOOLEAN = 39;
+  int LENGTH = 39;
   /** RegularExpression Id. */
-  int INTEGER = 40;
+  int BOOLEAN = 40;
   /** RegularExpression Id. */
-  int LONG = 41;
+  int INTEGER = 41;
   /** RegularExpression Id. */
   int STRING = 42;
   /** RegularExpression Id. */
-  int INTEGER_LITERAL = 43;
+  int ID = 43;
+  /** RegularExpression Id. */
+  int INT_LIT = 44;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -113,6 +115,7 @@ public interface LexerConstants {
     "\"!\"",
     "\"+\"",
     "\"-\"",
+    "\"*\"",
     "\"=\"",
     "\"while\"",
     "\"if\"",
@@ -131,9 +134,9 @@ public interface LexerConstants {
     "\"length\"",
     "\"boolean\"",
     "\"int\"",
-    "\"long\"",
     "\"String\"",
-    "<INTEGER_LITERAL>",
+    "<ID>",
+    "<INT_LIT>",
   };
 
 }
