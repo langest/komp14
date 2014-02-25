@@ -162,6 +162,8 @@ public class Parser {
 			skip();
 		} else if (test(LexerConstants.ID)) {
 			skip();
+		} else {
+			fail();
 		}
 	}
 	
@@ -322,6 +324,8 @@ public class Parser {
 			} else {
 				fail();
 			}
+		} else {
+			fail();
 		}
 	}
 	
