@@ -1,4 +1,5 @@
 PARSER_BEGIN(Lexer)
+package lexer;
 
 import java.util.*;
 import java.io.*;
