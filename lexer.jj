@@ -8,8 +8,8 @@ public class Lexer {
     public static List<Token> parseTokens() {
         ArrayList<Token> tokens = new ArrayList<Token>();
         while (true) {
-            Token t = SyntaxChecker.getNextToken();
-            if (t.kind == SyntaxCheckerConstants.EOF) break;
+            Token t = Lexer.getNextToken();
+            if (t.kind == LexerConstants.EOF) break;
             tokens.add(t);
         }
         return tokens;
