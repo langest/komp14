@@ -1,9 +1,9 @@
-PARSER_BEGIN(SyntaxChecker)
+PARSER_BEGIN(Lexer)
 
 import java.util.*;
 import java.io.*;
 
-public class SyntaxChecker {
+public class Lexer {
 
     public static List<Token> parseTokens() {
         ArrayList<Token> tokens = new ArrayList<Token>();
@@ -16,7 +16,7 @@ public class SyntaxChecker {
     }
 }
 
-PARSER_END(SyntaxChecker)
+PARSER_END(Lexer)
 
 //Skip white space
 SKIP :
@@ -136,4 +136,5 @@ TOKEN :
   >
 }
 */
+
 
