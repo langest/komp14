@@ -5,7 +5,7 @@ import java.util.*;
 import java.io.*;
 
 public class Lexer {
-
+	/*
     public static List<Token> parseTokens() {
         ArrayList<Token> tokens = new ArrayList<Token>();
         while (true) {
@@ -15,6 +15,12 @@ public class Lexer {
         }
         return tokens;
     }
+    */
+    
+	public static void main(String args[]) throws ParseException {
+		MiniJavaLexer parser = new MiniJavaLexer(System.in);
+		parser.Goal();
+	}
 }
 
 PARSER_END(Lexer)
@@ -140,5 +146,38 @@ TOKEN :
   >
 }
 */
+
+
+void Goal() :
+{}
+{
+	( MiniJavaProgram() )* <EOF> {
+		System.out.println("Successfully parsed everything");
+	}
+}
+
+void MiniJavaProgram():
+{}
+{
+	CLASS 
+	ID 
+	LBRACE 
+	PUBLIC 
+	STATIC 
+	VOID 
+	MAIN 
+	LPAREN
+	STRING 
+	LSQPAREN 
+	RSQPAREN
+	ID
+	RPAREN 
+	LBRACE
+	
+	//Stuff
+	
+	RBRACE
+	RBRACE
+}
 
 
