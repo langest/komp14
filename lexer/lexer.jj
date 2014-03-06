@@ -151,7 +151,7 @@ TOKEN :
 void Goal() :
 {}
 {
-	( MiniJavaProgram() )* <EOF> {
+	MiniJavaProgram() <EOF> {
 		System.out.println("Successfully parsed everything");
 	}
 }
