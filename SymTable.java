@@ -17,6 +17,13 @@ public class SymTable {
 		current = current.parent;
 	}
 	
+	public void addClassNode(ClassNode classNode) {
+		if (current.classes.containsKey(classNode.getName())) {
+			throw new DummyException("class name " + classNode.getName() + " was already declared in this scope");
+		}
+		current.classes.put(classNode.getName(), classNode);
+	}
+	
 	static class Layer {
 		private Layer parent;
 		private HashMap<String, VariableNode> variables;

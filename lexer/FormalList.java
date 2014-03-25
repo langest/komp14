@@ -4,6 +4,9 @@ package lexer;
 
 public
 class FormalList extends SimpleNode {
+	
+	String name;
+	
   public FormalList(int id) {
     super(id);
   }

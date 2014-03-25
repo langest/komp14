@@ -7,7 +7,7 @@ import java.io.*;
 public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants {/*@bgen(jjtree)*/
   protected static JJTLexerState jjtree = new JJTLexerState();
 
-  static final public SimpleNode Program() throws ParseException {
+  static final public Program Program() throws ParseException {
  /*@bgen(jjtree) Program */
   Program jjtn000 = new Program(JJTPROGRAM);
   boolean jjtc000 = true;
@@ -54,8 +54,8 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   }
 
   static final public void MainClass() throws ParseException {
- /*@bgen(jjtree) TestNode */
-  TestNode jjtn000 = new TestNode(JJTTESTNODE);
+ /*@bgen(jjtree) MainClass */
+  MainClass jjtn000 = new MainClass(JJTMAINCLASS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {

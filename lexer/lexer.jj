@@ -106,7 +106,7 @@ TOKEN : {
 }
 
 
-SimpleNode Program():
+Program Program():
 {/*@bgen(jjtree) Program */
   Program jjtn000 = new Program(JJTPROGRAM);
   boolean jjtc000 = true;
@@ -149,13 +149,13 @@ SimpleNode Program():
 /*@egen*/
 }
 
-void MainClass()          :
-{/*@bgen(jjtree) TestNode */
-  TestNode jjtn000 = new TestNode(JJTTESTNODE);
+void MainClass():
+{/*@bgen(jjtree) MainClass */
+  MainClass jjtn000 = new MainClass(JJTMAINCLASS);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/}
-{/*@bgen(jjtree) TestNode */
+{/*@bgen(jjtree) MainClass */
         try {
 /*@egen*/
 	<CLASS>

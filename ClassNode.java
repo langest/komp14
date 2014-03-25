@@ -4,4 +4,8 @@ public class ClassNode {
 	public ClassNode(String name) {
 		this.name = name;
 	}
+	
+	public String getName() {
+		return name;
+	}
 }
