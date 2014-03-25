@@ -9,7 +9,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public SimpleNode Program() throws ParseException {
  /*@bgen(jjtree) Program */
-  SimpleNode jjtn000 = new SimpleNode(JJTPROGRAM);
+  Program jjtn000 = new Program(JJTPROGRAM);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -54,8 +54,8 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   }
 
   static final public void MainClass() throws ParseException {
- /*@bgen(jjtree) MainClass */
-  SimpleNode jjtn000 = new SimpleNode(JJTMAINCLASS);
+ /*@bgen(jjtree) TestNode */
+  TestNode jjtn000 = new TestNode(JJTTESTNODE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -123,7 +123,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void ClassDecl() throws ParseException {
  /*@bgen(jjtree) ClassDecl */
-  SimpleNode jjtn000 = new SimpleNode(JJTCLASSDECL);
+  ClassDecl jjtn000 = new ClassDecl(JJTCLASSDECL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -180,7 +180,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void VarDecl() throws ParseException {
  /*@bgen(jjtree) VarDecl */
-  SimpleNode jjtn000 = new SimpleNode(JJTVARDECL);
+  VarDecl jjtn000 = new VarDecl(JJTVARDECL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -210,7 +210,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void MethodDecl() throws ParseException {
  /*@bgen(jjtree) MethodDecl */
-  SimpleNode jjtn000 = new SimpleNode(JJTMETHODDECL);
+  MethodDecl jjtn000 = new MethodDecl(JJTMETHODDECL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -273,7 +273,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void FormalList() throws ParseException {
  /*@bgen(jjtree) FormalList */
-  SimpleNode jjtn000 = new SimpleNode(JJTFORMALLIST);
+  FormalList jjtn000 = new FormalList(JJTFORMALLIST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -323,7 +323,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void FormalRest() throws ParseException {
  /*@bgen(jjtree) FormalRest */
-  SimpleNode jjtn000 = new SimpleNode(JJTFORMALREST);
+  FormalRest jjtn000 = new FormalRest(JJTFORMALREST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -353,7 +353,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void Type() throws ParseException {
  /*@bgen(jjtree) Type */
-  SimpleNode jjtn000 = new SimpleNode(JJTTYPE);
+  Type jjtn000 = new Type(JJTTYPE);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -387,7 +387,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void Stmt() throws ParseException {
  /*@bgen(jjtree) Stmt */
-  SimpleNode jjtn000 = new SimpleNode(JJTSTMT);
+  Stmt jjtn000 = new Stmt(JJTSTMT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -483,7 +483,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void Exp() throws ParseException {
  /*@bgen(jjtree) Exp */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXP);
+  Exp jjtn000 = new Exp(JJTEXP);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -511,7 +511,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E1() throws ParseException {
  /*@bgen(jjtree) E1 */
-  SimpleNode jjtn000 = new SimpleNode(JJTE1);
+  E1 jjtn000 = new E1(JJTE1);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -540,7 +540,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E1Cont() throws ParseException {
  /*@bgen(jjtree) E1Cont */
-  SimpleNode jjtn000 = new SimpleNode(JJTE1CONT);
+  E1Cont jjtn000 = new E1Cont(JJTE1CONT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -577,7 +577,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E2() throws ParseException {
  /*@bgen(jjtree) E2 */
-  SimpleNode jjtn000 = new SimpleNode(JJTE2);
+  E2 jjtn000 = new E2(JJTE2);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -606,7 +606,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E2Cont() throws ParseException {
  /*@bgen(jjtree) E2Cont */
-  SimpleNode jjtn000 = new SimpleNode(JJTE2CONT);
+  E2Cont jjtn000 = new E2Cont(JJTE2CONT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -643,7 +643,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E3() throws ParseException {
  /*@bgen(jjtree) E3 */
-  SimpleNode jjtn000 = new SimpleNode(JJTE3);
+  E3 jjtn000 = new E3(JJTE3);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -672,7 +672,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E3Cont() throws ParseException {
  /*@bgen(jjtree) E3Cont */
-  SimpleNode jjtn000 = new SimpleNode(JJTE3CONT);
+  E3Cont jjtn000 = new E3Cont(JJTE3CONT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -721,7 +721,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E4() throws ParseException {
  /*@bgen(jjtree) E4 */
-  SimpleNode jjtn000 = new SimpleNode(JJTE4);
+  E4 jjtn000 = new E4(JJTE4);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -750,7 +750,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E4Cont() throws ParseException {
  /*@bgen(jjtree) E4Cont */
-  SimpleNode jjtn000 = new SimpleNode(JJTE4CONT);
+  E4Cont jjtn000 = new E4Cont(JJTE4CONT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -787,7 +787,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E5() throws ParseException {
  /*@bgen(jjtree) E5 */
-  SimpleNode jjtn000 = new SimpleNode(JJTE5);
+  E5 jjtn000 = new E5(JJTE5);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -834,7 +834,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E5Cont() throws ParseException {
  /*@bgen(jjtree) E5Cont */
-  SimpleNode jjtn000 = new SimpleNode(JJTE5CONT);
+  E5Cont jjtn000 = new E5Cont(JJTE5CONT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -896,7 +896,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void E6() throws ParseException {
  /*@bgen(jjtree) E6 */
-  SimpleNode jjtn000 = new SimpleNode(JJTE6);
+  E6 jjtn000 = new E6(JJTE6);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -967,7 +967,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void ExpList() throws ParseException {
  /*@bgen(jjtree) ExpList */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXPLIST);
+  ExpList jjtn000 = new ExpList(JJTEXPLIST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -1021,7 +1021,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static final public void ExpRest() throws ParseException {
  /*@bgen(jjtree) ExpRest */
-  SimpleNode jjtn000 = new SimpleNode(JJTEXPREST);
+  ExpRest jjtn000 = new ExpRest(JJTEXPREST);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
     try {
@@ -1090,6 +1090,24 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     finally { jj_save(5, xla); }
   }
 
+  static private boolean jj_3_4() {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_11() {
+    if (jj_3R_12()) return true;
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_6() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
   static private boolean jj_3R_12() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1125,24 +1143,6 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static private boolean jj_3_2() {
     if (jj_3R_11()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_4() {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_11() {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_6() {
-    if (jj_scan_token(NEW)) return true;
-    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 

@@ -6,4 +6,11 @@ public class Main {
         SimpleNode node = Lexer.Program();
         node.dump("");
 	}
+	
+	public static void printTree(SimpleNode node, String prefix) {
+		System.out.println(prefix + node.toString() + " (" + node.jjtGetValue() + ")");
+		for (int i = 0; i < node.jjtGetNumChildren(); i++) {
+			printTree((SimpleNode)node.jjtGetChild(i), prefix + " ");
+		}
+	}
 }

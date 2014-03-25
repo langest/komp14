@@ -1,3 +1,8 @@
+options {
+    MULTI=true;
+    NODE_PREFIX="";
+}
+
 PARSER_BEGIN(Lexer)
 package lexer;
 
@@ -97,7 +102,7 @@ TOKEN : {
 }
 
 
-SimpleNode Program() :
+SimpleNode Program():
 {}
 {
 	MainClass()
@@ -109,7 +114,7 @@ SimpleNode Program() :
 	}
 }
 
-void MainClass():
+void MainClass() #TestNode:
 {}
 {
 	<CLASS>

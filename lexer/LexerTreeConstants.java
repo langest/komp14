@@ -4,7 +4,7 @@ package lexer;
 public interface LexerTreeConstants
 {
   public int JJTPROGRAM = 0;
-  public int JJTMAINCLASS = 1;
+  public int JJTTESTNODE = 1;
   public int JJTCLASSDECL = 2;
   public int JJTVARDECL = 3;
   public int JJTMETHODDECL = 4;
@@ -30,7 +30,7 @@ public interface LexerTreeConstants
 
   public String[] jjtNodeName = {
     "Program",
-    "MainClass",
+    "TestNode",
     "ClassDecl",
     "VarDecl",
     "MethodDecl",
@@ -54,4 +54,4 @@ public interface LexerTreeConstants
     "ExpRest",
   };
 }
-/* JavaCC - OriginalChecksum=6d9ae1dd13993ab20ac72162485df2ec (do not edit this line) */
+/* JavaCC - OriginalChecksum=9b9608b0d86594136064a76f73f5c819 (do not edit this line) */
