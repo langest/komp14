@@ -4,6 +4,9 @@ package lexer;
 
 public
 class MethodDecl extends SimpleNode {
+	
+	private String name;
+	
   public MethodDecl(int id) {
     super(id);
   }
@@ -11,6 +14,14 @@ class MethodDecl extends SimpleNode {
   public MethodDecl(Lexer p, int id) {
     super(p, id);
   }
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
 
 }
 /* JavaCC - OriginalChecksum=ba955e37a17bc86108731136437bad33 (do not edit this line) */

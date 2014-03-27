@@ -4,6 +4,9 @@ package lexer;
 
 public
 class Type extends SimpleNode {
+	
+	private String name;
+	
   public Type(int id) {
     super(id);
   }
@@ -11,6 +14,14 @@ class Type extends SimpleNode {
   public Type(Lexer p, int id) {
     super(p, id);
   }
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
 
 }
 /* JavaCC - OriginalChecksum=ae84556a2cae509241b4c4f412ad0bb7 (do not edit this line) */

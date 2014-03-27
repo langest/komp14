@@ -4,6 +4,13 @@ package lexer;
 
 public
 class Stmt extends SimpleNode {
+	
+	private StmtType type;
+	
+	public enum StmtType {
+		BRACES, IF_ELSE, WHILE, PRINT, ASSIGN, ARRAY_ASSIGN;
+	}
+	
   public Stmt(int id) {
     super(id);
   }
@@ -11,6 +18,14 @@ class Stmt extends SimpleNode {
   public Stmt(Lexer p, int id) {
     super(p, id);
   }
+
+public StmtType getType() {
+	return type;
+}
+
+public void setType(StmtType type) {
+	this.type = type;
+}
 
 }
 /* JavaCC - OriginalChecksum=79188639f98ec5c0a1da9aaed81dc2d7 (do not edit this line) */
