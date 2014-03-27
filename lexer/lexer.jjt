@@ -145,6 +145,9 @@ void ClassDecl():
 {
     <CLASS>
     <ID>
+    {
+        jjtThis.setName(token.image);
+    }
     <LBRACE>
     (VarDecl())*
     (MethodDecl())*
@@ -169,6 +172,9 @@ void MethodDecl():
     <PUBLIC>
     Type()
     <ID>
+    {
+        jjtThis.setName(token.image);
+    }
     <LPAREN>
     FormalList()
     <RPAREN>
@@ -186,6 +192,9 @@ void FormalList():
 {
     (Type()
     <ID>
+    {
+        jjtThis.setName(token.image);
+    }
     (FormalRest())*)?
 }
 
@@ -195,6 +204,9 @@ void FormalRest():
     <COMMA>
     Type()
     <ID>
+    {
+        jjtThis.setName(token.image);
+    }
 }
 
 void Type():
