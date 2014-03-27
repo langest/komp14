@@ -2,18 +2,22 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package lexer;
 
-public
-class FormalList extends SimpleNode {
-	
+import java.util.*;
+
+public class FormalList extends SimpleNode {
+
 	String name;
-	
-  public FormalList(int id) {
-    super(id);
-  }
 
-  public FormalList(Lexer p, int id) {
-    super(p, id);
-  }
+	public FormalList(int id) {
+		super(id);
+	}
 
+	public FormalList(Lexer p, int id) {
+		super(p, id);
+	}
+
+	public String toString() {
+		return super.toString() + Arrays.toString(children);
+	}
 }
 /* JavaCC - OriginalChecksum=0ba785bca515b000fc1eb5b5614a39f5 (do not edit this line) */

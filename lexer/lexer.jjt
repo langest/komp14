@@ -119,6 +119,9 @@ void MainClass():
 {
 	<CLASS>
 	<ID>
+    {
+        jjtThis.setName(token.image);
+    }
 	<LBRACE>
 	<PUBLIC>
 	<STATIC>
@@ -155,6 +158,9 @@ void VarDecl():
 {
     Type()
     <ID>
+    {
+        jjtThis.setName(token.image);
+    }
     <SEMICOLON>
 }
 

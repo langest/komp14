@@ -4,12 +4,27 @@ package lexer;
 
 public
 class MainClass extends SimpleNode {
+	
+	private String name;
+	
   public MainClass(int id) {
     super(id);
   }
 
   public MainClass(Lexer p, int id) {
     super(p, id);
+  }
+  
+  public void setName(String name) {
+	  this.name = name;
+  }
+  
+  public String getname() {
+	  return name;
+  }
+  
+  public String toString() {
+	  return super.toString() + "(" +  name + ")";
   }
 
 }

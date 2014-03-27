@@ -4,13 +4,32 @@ package lexer;
 
 public
 class VarDecl extends SimpleNode {
-  public VarDecl(int id) {
-    super(id);
-  }
 
-  public VarDecl(Lexer p, int id) {
-    super(p, id);
-  }
+	private String name;
+
+	public VarDecl(int id) {
+		super(id);
+	}
+
+	public VarDecl(Lexer p, int id) {
+		super(p, id);
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Type getType() {
+		return (Type) children[0];
+	}
+
+	public String toString() {
+		return super.toString() + "(" + name + ")";
+	}
 
 }
 /* JavaCC - OriginalChecksum=cfc2e4359a20a521892164e1bf42ceba (do not edit this line) */
