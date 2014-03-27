@@ -2,15 +2,20 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package lexer;
 
-public
-class Program extends SimpleNode {
-  public Program(int id) {
-    super(id);
-  }
+import java.util.*;
 
-  public Program(Lexer p, int id) {
-    super(p, id);
-  }
+public class Program extends SimpleNode {
+	public Program(int id) {
+		super(id);
+	}
+
+	public Program(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public String toString() {
+		return super.toString() + Arrays.toString(children);
+	}
 
 }
 /* JavaCC - OriginalChecksum=6b7c83e5a50eb4d04d88eba1d58ba34e (do not edit this line) */

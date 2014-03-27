@@ -61,6 +61,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     try {
       jj_consume_token(CLASS);
       jj_consume_token(ID);
+        jjtn000.setName(token.image);
       jj_consume_token(LBRACE);
       jj_consume_token(PUBLIC);
       jj_consume_token(STATIC);
@@ -186,6 +187,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     try {
       Type();
       jj_consume_token(ID);
+        jjtn000.setName(token.image);
       jj_consume_token(SEMICOLON);
     } catch (Throwable jjte000) {
       if (jjtc000) {
@@ -1090,24 +1092,6 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     finally { jj_save(5, xla); }
   }
 
-  static private boolean jj_3_4() {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_11() {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_6() {
-    if (jj_scan_token(NEW)) return true;
-    if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_12() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1130,9 +1114,20 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
+  static private boolean jj_3R_11() {
+    if (jj_3R_12()) return true;
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
   static private boolean jj_3_5() {
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(LENGTH)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_2() {
+    if (jj_3R_11()) return true;
     return false;
   }
 
@@ -1141,8 +1136,15 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
-  static private boolean jj_3_2() {
-    if (jj_3R_11()) return true;
+  static private boolean jj_3_4() {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_6() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 

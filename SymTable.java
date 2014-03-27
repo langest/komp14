@@ -24,6 +24,10 @@ public class SymTable {
 		current.classes.put(classNode.getName(), classNode);
 	}
 	
+	public void addMethodNode(MethodNode methodNode) {
+		
+	}
+	
 	static class Layer {
 		private Layer parent;
 		private HashMap<String, VariableNode> variables;

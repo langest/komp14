@@ -160,6 +160,9 @@ void MainClass():
 /*@egen*/
 	<CLASS>
 	<ID>
+    {
+        jjtn000.setName(token.image);
+    }
 	<LBRACE>
 	<PUBLIC>
 	<STATIC>
@@ -247,6 +250,9 @@ void VarDecl():
 /*@egen*/
     Type()
     <ID>
+    {
+        jjtn000.setName(token.image);
+    }
     <SEMICOLON>/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
