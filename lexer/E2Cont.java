@@ -4,13 +4,17 @@ package lexer;
 
 public
 class E2Cont extends SimpleNode {
-  public E2Cont(int id) {
-    super(id);
-  }
+	public E2Cont(int id) {
+		super(id);
+	}
 
-  public E2Cont(Lexer p, int id) {
-    super(p, id);
-  }
+	public E2Cont(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public String toString() {
+		return super.toString() + " " + (children != null ? "<" : "");
+	}
 
 }
 /* JavaCC - OriginalChecksum=c8ec47beb7ccd3714dc107074d649c62 (do not edit this line) */

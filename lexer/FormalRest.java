@@ -4,13 +4,28 @@ package lexer;
 
 public
 class FormalRest extends SimpleNode {
-  public FormalRest(int id) {
-    super(id);
-  }
 
-  public FormalRest(Lexer p, int id) {
-    super(p, id);
-  }
+	private String name;
+
+	public FormalRest(int id) {
+		super(id);
+	}
+
+	public FormalRest(Lexer p, int id) {
+		super(p, id);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String toString() {
+		return super.toString() + "(" + name + ")";
+	}
 
 }
 /* JavaCC - OriginalChecksum=bb6dc3af303fcd8f101b0721e1c70214 (do not edit this line) */

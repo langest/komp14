@@ -130,6 +130,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     try {
       jj_consume_token(CLASS);
       jj_consume_token(ID);
+        jjtn000.setName(token.image);
       jj_consume_token(LBRACE);
       label_4:
       while (true) {
@@ -219,6 +220,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       jj_consume_token(PUBLIC);
       Type();
       jj_consume_token(ID);
+        jjtn000.setName(token.image);
       jj_consume_token(LPAREN);
       FormalList();
       jj_consume_token(RPAREN);
@@ -285,6 +287,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       case ID:
         Type();
         jj_consume_token(ID);
+        jjtn000.setName(token.image);
         label_8:
         while (true) {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -332,6 +335,9 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       jj_consume_token(COMMA);
       Type();
       jj_consume_token(ID);
+      jjtree.closeNodeScope(jjtn000, true);
+      jjtc000 = false;
+        jjtn000.setName(token.image);
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -363,16 +369,28 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         jj_consume_token(INTEGER);
         jj_consume_token(LSQPAREN);
         jj_consume_token(RSQPAREN);
+                                      jjtree.closeNodeScope(jjtn000, true);
+                                      jjtc000 = false;
+                                      jjtn000.setType(Type.TypeType.INT_ARRAY);
       } else {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case BOOLEAN:
           jj_consume_token(BOOLEAN);
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+                jjtn000.setType(Type.TypeType.BOOLEAN);
           break;
         case INTEGER:
           jj_consume_token(INTEGER);
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+                jjtn000.setType(Type.TypeType.INT);
           break;
         case ID:
           jj_consume_token(ID);
+           jjtree.closeNodeScope(jjtn000, true);
+           jjtc000 = false;
+           jjtn000.setType(Type.TypeType.CUSTOM); jjtn000.setName(token.image);
           break;
         default:
           jj_la1[7] = jj_gen;
@@ -413,6 +431,9 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
           Stmt();
         }
         jj_consume_token(RBRACE);
+                                  jjtree.closeNodeScope(jjtn000, true);
+                                  jjtc000 = false;
+                                  jjtn000.setType(Stmt.StmtType.BRACES);
         break;
       case IF:
         jj_consume_token(IF);
@@ -422,6 +443,9 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         Stmt();
         jj_consume_token(ELSE);
         Stmt();
+                                                        jjtree.closeNodeScope(jjtn000, true);
+                                                        jjtc000 = false;
+                                                        jjtn000.setType(Stmt.StmtType.IF_ELSE);
         break;
       case WHILE:
         jj_consume_token(WHILE);
@@ -429,6 +453,9 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         Exp();
         jj_consume_token(RPAREN);
         Stmt();
+                                             jjtree.closeNodeScope(jjtn000, true);
+                                             jjtc000 = false;
+                                             jjtn000.setType(Stmt.StmtType.WHILE);
         break;
       case PRINT:
         jj_consume_token(PRINT);
@@ -436,24 +463,35 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         Exp();
         jj_consume_token(RPAREN);
         jj_consume_token(SEMICOLON);
+                                                  jjtree.closeNodeScope(jjtn000, true);
+                                                  jjtc000 = false;
+                                                  jjtn000.setType(Stmt.StmtType.PRINT);
         break;
       default:
         jj_la1[9] = jj_gen;
         if (jj_2_4(2)) {
           jj_consume_token(ID);
+                        jjtn000.setName(token.image);
           jj_consume_token(ASSIGN);
           Exp();
           jj_consume_token(SEMICOLON);
+                                                                                     jjtree.closeNodeScope(jjtn000, true);
+                                                                                     jjtc000 = false;
+                                                                                     jjtn000.setType(Stmt.StmtType.ASSIGN);
         } else {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case ID:
             jj_consume_token(ID);
+           jjtn000.setName(token.image);
             jj_consume_token(LSQPAREN);
             Exp();
             jj_consume_token(RSQPAREN);
             jj_consume_token(ASSIGN);
             Exp();
             jj_consume_token(SEMICOLON);
+                                                                                                    jjtree.closeNodeScope(jjtn000, true);
+                                                                                                    jjtc000 = false;
+                                                                                                    jjtn000.setType(Stmt.StmtType.ARRAY_ASSIGN);
             break;
           default:
             jj_la1[10] = jj_gen;
@@ -684,9 +722,11 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case PLUS:
           jj_consume_token(PLUS);
+                 jjtn000.setType(E3Cont.E3ContType.PLUS);
           break;
         case MINUS:
           jj_consume_token(MINUS);
+                  jjtn000.setType(E3Cont.E3ContType.MINUS);
           break;
         default:
           jj_la1[13] = jj_gen;
@@ -797,6 +837,9 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       case NOT:
         jj_consume_token(NOT);
         E5();
+                 jjtree.closeNodeScope(jjtn000, true);
+                 jjtc000 = false;
+                 jjtn000.setType(E5.E5Type.NOT);
         break;
       case LPAREN:
       case TRUE:
@@ -848,17 +891,20 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
           jj_consume_token(LSQPAREN);
           Exp();
           jj_consume_token(RSQPAREN);
+                                   jjtn000.setType(E5Cont.E5ContType.ARRAY_ACCESS);
           break;
         default:
           jj_la1[17] = jj_gen;
           if (jj_2_5(2)) {
             jj_consume_token(DOT);
             jj_consume_token(LENGTH);
+                                  jjtn000.setType(E5Cont.E5ContType.LENGTH);
           } else {
             switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
             case DOT:
               jj_consume_token(DOT);
               jj_consume_token(ID);
+                 jjtn000.setName(token.image); jjtn000.setType(E5Cont.E5ContType.METHOD_INVOCATION);
               jj_consume_token(LPAREN);
               ExpList();
               jj_consume_token(RPAREN);
@@ -905,23 +951,41 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ID:
         jj_consume_token(ID);
+           jjtree.closeNodeScope(jjtn000, true);
+           jjtc000 = false;
+           jjtn000.setType(E6.E6Type.ID); jjtn000.setImage(token.image);
         break;
       case INT_LIT:
         jj_consume_token(INT_LIT);
+                jjtree.closeNodeScope(jjtn000, true);
+                jjtc000 = false;
+                jjtn000.setType(E6.E6Type.INT_LIT); jjtn000.setImage(token.image);
         break;
       case TRUE:
         jj_consume_token(TRUE);
+             jjtree.closeNodeScope(jjtn000, true);
+             jjtc000 = false;
+             jjtn000.setType(E6.E6Type.TRUE);
         break;
       case FALSE:
         jj_consume_token(FALSE);
+              jjtree.closeNodeScope(jjtn000, true);
+              jjtc000 = false;
+              jjtn000.setType(E6.E6Type.FALSE);
         break;
       case LPAREN:
         jj_consume_token(LPAREN);
         Exp();
         jj_consume_token(RPAREN);
+                              jjtree.closeNodeScope(jjtn000, true);
+                              jjtc000 = false;
+                              jjtn000.setType(E6.E6Type.PAREN);
         break;
       case THIS:
         jj_consume_token(THIS);
+             jjtree.closeNodeScope(jjtn000, true);
+             jjtc000 = false;
+             jjtn000.setType(E6.E6Type.THIS);
         break;
       default:
         jj_la1[20] = jj_gen;
@@ -931,11 +995,15 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
           jj_consume_token(LSQPAREN);
           Exp();
           jj_consume_token(RSQPAREN);
+                                                               jjtree.closeNodeScope(jjtn000, true);
+                                                               jjtc000 = false;
+                                                               jjtn000.setType(E6.E6Type.NEW_INT_ARRAY);
         } else {
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case NEW:
             jj_consume_token(NEW);
             jj_consume_token(ID);
+                 jjtn000.setType(E6.E6Type.NEW_ID); jjtn000.setImage(token.image);
             jj_consume_token(LPAREN);
             jj_consume_token(RPAREN);
             break;
@@ -1092,19 +1160,18 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     finally { jj_save(5, xla); }
   }
 
-  static private boolean jj_3R_12() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_3()) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(40)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(41)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(43)) return true;
-    }
-    }
-    }
+  static private boolean jj_3R_15() {
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_14() {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_13() {
+    if (jj_scan_token(BOOLEAN)) return true;
     return false;
   }
 
@@ -1114,9 +1181,19 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
-  static private boolean jj_3R_11() {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(ID)) return true;
+  static private boolean jj_3R_12() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_3()) {
+    jj_scanpos = xsp;
+    if (jj_3R_13()) {
+    jj_scanpos = xsp;
+    if (jj_3R_14()) {
+    jj_scanpos = xsp;
+    if (jj_3R_15()) return true;
+    }
+    }
+    }
     return false;
   }
 
@@ -1126,12 +1203,18 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
-  static private boolean jj_3_2() {
+  static private boolean jj_3_1() {
     if (jj_3R_11()) return true;
     return false;
   }
 
-  static private boolean jj_3_1() {
+  static private boolean jj_3R_11() {
+    if (jj_3R_12()) return true;
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_2() {
     if (jj_3R_11()) return true;
     return false;
   }

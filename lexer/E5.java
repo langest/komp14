@@ -4,13 +4,32 @@ package lexer;
 
 public
 class E5 extends SimpleNode {
-  public E5(int id) {
-    super(id);
-  }
+	
+	private E5Type type;
+	
+	public E5(int id) {
+		super(id);
+	}
 
-  public E5(Lexer p, int id) {
-    super(p, id);
-  }
+	public E5(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public void setType(E5Type type) {
+		this.type = type;
+	}
+	
+	public E5Type getType() {
+		return type;
+	}
+	
+	public enum E5Type {
+		NOT;
+	}
+	
+	public String toString() {
+		return super.toString() + " " + (type != null ? "!" : "");
+	}
 
 }
 /* JavaCC - OriginalChecksum=eccc4f05fcbf876597c4cee6ddd13727 (do not edit this line) */

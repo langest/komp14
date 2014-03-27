@@ -6,7 +6,7 @@ import java.util.*;
 
 public class FormalList extends SimpleNode {
 
-	String name;
+	private String name;
 
 	public FormalList(int id) {
 		super(id);
@@ -16,8 +16,16 @@ public class FormalList extends SimpleNode {
 		super(p, id);
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String toString() {
-		return super.toString() + Arrays.toString(children);
+		return super.toString() + "(" + name + ")";
 	}
 }
 /* JavaCC - OriginalChecksum=0ba785bca515b000fc1eb5b5614a39f5 (do not edit this line) */

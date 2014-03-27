@@ -4,13 +4,40 @@ package lexer;
 
 public
 class E5Cont extends SimpleNode {
-  public E5Cont(int id) {
-    super(id);
-  }
+	
+	private E5ContType type;
+	private String name;
+	
+	public E5Cont(int id) {
+		super(id);
+	}
 
-  public E5Cont(Lexer p, int id) {
-    super(p, id);
-  }
-
+	public E5Cont(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public enum E5ContType {
+		ARRAY_ACCESS, LENGTH, METHOD_INVOCATION;
+	}
+	
+	public void setType(E5ContType type) {
+		this.type = type;
+	}
+	
+	public E5ContType getType() {
+		return type;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return super.toString() + " " + (children != null ? type + (type == E5ContType.METHOD_INVOCATION ? "(" + name + ")" : "") : "");
+	}
 }
 /* JavaCC - OriginalChecksum=acc357d90a96f725c75d3a51ca7c9e08 (do not edit this line) */

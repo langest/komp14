@@ -4,13 +4,42 @@ package lexer;
 
 public
 class Type extends SimpleNode {
-  public Type(int id) {
-    super(id);
-  }
 
-  public Type(Lexer p, int id) {
-    super(p, id);
-  }
+	private String name;
+	private TypeType type;
+
+	public Type(int id) {
+		super(id);
+	}
+
+	public Type(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public enum TypeType {
+		INT, INT_ARRAY, BOOLEAN, CUSTOM;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setType(TypeType type) {
+		this.type = type;
+	}
+	
+	public TypeType getType() {
+		return type;
+	}
+	
+	public String toString() {
+		if (type == TypeType.CUSTOM) return super.toString() + "(" + name + ")";
+		else return super.toString() + "(" + type + ")";
+	}
 
 }
 /* JavaCC - OriginalChecksum=ae84556a2cae509241b4c4f412ad0bb7 (do not edit this line) */

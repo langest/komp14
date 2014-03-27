@@ -2,15 +2,42 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package lexer;
 
-public
-class Stmt extends SimpleNode {
-  public Stmt(int id) {
-    super(id);
-  }
+public class Stmt extends SimpleNode {
 
-  public Stmt(Lexer p, int id) {
-    super(p, id);
-  }
+	private StmtType type;
+	private String name;
+
+	public enum StmtType {
+		BRACES, IF_ELSE, WHILE, PRINT, ASSIGN, ARRAY_ASSIGN;
+	}
+
+	public Stmt(int id) {
+		super(id);
+	}
+
+	public Stmt(Lexer p, int id) {
+		super(p, id);
+	}
+
+	public StmtType getType() {
+		return type;
+	}
+
+	public void setType(StmtType type) {
+		this.type = type;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String toString() {
+		return super.toString() + " " + type + (name != null ? "(" + name + ")" : "");
+	}
 
 }
 /* JavaCC - OriginalChecksum=79188639f98ec5c0a1da9aaed81dc2d7 (do not edit this line) */
