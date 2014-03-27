@@ -142,6 +142,7 @@ void ClassDecl():
 {
     <CLASS>
     <ID>
+	{ jjtThis.setName(token.image); }
     <LBRACE>
     (VarDecl())*
     (MethodDecl())*

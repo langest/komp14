@@ -4,6 +4,9 @@ package lexer;
 
 public
 class ClassDecl extends SimpleNode {
+
+	private String name;
+	
   public ClassDecl(int id) {
     super(id);
   }
@@ -12,5 +15,13 @@ class ClassDecl extends SimpleNode {
     super(p, id);
   }
 
+  public void setName(String name) {
+	  this.name = name;
+  }
+
+  public String getName() {
+	  return this.name;
+  }
+  
 }
 /* JavaCC - OriginalChecksum=5f851a8dba450a40ed629e49ff366b0a (do not edit this line) */
