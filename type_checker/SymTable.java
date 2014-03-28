@@ -1,4 +1,8 @@
+package type_checker;
+
 import java.util.*;
+import lexer.*;
+import errors.*;
 
 public class SymTable {
 	private Layer current;
@@ -17,28 +21,29 @@ public class SymTable {
 		current = current.parent;
 	}
 	
-	public void addClassNode(ClassNode classNode) {
+	public void addClassNode(ClassDecl classNode) {
 		if (current.classes.containsKey(classNode.getName())) {
 			throw new DummyException("class name " + classNode.getName() + " was already declared in this scope");
 		}
 		current.classes.put(classNode.getName(), classNode);
 	}
 	
-	public void addMethodNode(MethodNode methodNode) {
-		
+	public void printClasses() {
+		for (String c : current.classes.keySet()) {
+			System.out.println("Class " + c + ":");
+			current.classes.get(c).printMethodsAndVariables();
+		}
 	}
 	
 	static class Layer {
 		private Layer parent;
-		private HashMap<String, VariableNode> variables;
-		private HashMap<String, MethodNode> methods;
-		private HashMap<String, ClassNode> classes;
+		private HashMap<String, VarDecl> variables;
+		private HashMap<String, ClassDecl> classes;
 		
 		private Layer() {
 			parent = null;
-			variables = new HashMap<String, VariableNode>();
-			methods = new HashMap<String, MethodNode>();
-			classes = new HashMap<String, ClassNode>();
+			variables = new HashMap<String, VarDecl>();
+			classes = new HashMap<String, ClassDecl>();
 		}
 	}
 }

@@ -23,6 +23,15 @@ public class FormalList extends SimpleNode {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public void appendCanonicalName(StringBuilder sb) {
+		if (children != null && children.length > 0) {
+			sb.append(((Type)children[0]).toShortString());
+			for (int i = 1; i < children.length; i++) {
+				((FormalRest)children[i]).appendCanonicalString(sb);
+			}
+		}
+	}
 
 	public String toString() {
 		return super.toString() + "(" + name + ")";

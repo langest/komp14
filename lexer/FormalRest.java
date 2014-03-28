@@ -23,6 +23,11 @@ class FormalRest extends SimpleNode {
 		this.name = name;
 	}
 	
+	public void appendCanonicalString(StringBuilder sb) {
+		sb.append(',');
+		sb.append(((Type)children[0]).toShortString());
+	}
+	
 	public String toString() {
 		return super.toString() + "(" + name + ")";
 	}

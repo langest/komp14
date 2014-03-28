@@ -36,6 +36,11 @@ class Type extends SimpleNode {
 		return type;
 	}
 	
+	public String toShortString() {
+		if (type == TypeType.CUSTOM) return name;
+		return type.toString();
+	}
+	
 	public String toString() {
 		if (type == TypeType.CUSTOM) return super.toString() + "(" + name + ")";
 		else return super.toString() + "(" + type + ")";

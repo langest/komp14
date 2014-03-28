@@ -23,6 +23,18 @@ class MethodDecl extends SimpleNode {
 		this.name = name;
 	}
 	
+	public String getCanonicalString() {
+		StringBuilder sb = new StringBuilder(name);
+		sb.append('(');
+		((FormalList)children[1]).appendCanonicalName(sb);
+		sb.append(')');
+		return sb.toString();
+	}
+	
+	public static String getCanonicalString(String name, ExpList expList) {
+		return null; // TODO
+	}
+	
 	public String toString() {
 		return super.toString() + "(" + name + ")";
 	}

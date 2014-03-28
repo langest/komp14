@@ -3,6 +3,7 @@
 package lexer;
 
 import java.util.*;
+import type_checker.SymTable;
 
 public class Program extends SimpleNode {
 	public Program(int id) {
@@ -15,6 +16,19 @@ public class Program extends SimpleNode {
 	
 	public String toString() {
 		return super.toString() + Arrays.toString(children);
+	}
+	
+	public void pass1(SymTable symTable) {
+		ClassDecl dummyMain = new ClassDecl(0);
+		dummyMain.setName(((MainClass)children[0]).getname());
+		symTable.addClassNode(dummyMain);
+		for (int i = 1; i < children.length; i++) {
+			ClassDecl classDecl = (ClassDecl) children[i];
+			symTable.openScope();
+			classDecl.pass1(symTable);
+			symTable.closeScope();
+			symTable.addClassNode(classDecl);
+		}
 	}
 
 }

@@ -1,10 +1,15 @@
 import lexer.*;
 
+import type_checker.*;
+
 public class Main {
 	public static void main(String[] args) throws ParseException {
         new Lexer(System.in);
-        SimpleNode node = Lexer.Program();
-        node.dump("");
+        Program program = Lexer.Program();
+        
+        SymTable symTable = new SymTable();
+        program.pass1(symTable);
+        symTable.printClasses();
 	}
 	
 	public static void printTree(SimpleNode node, String prefix) {
