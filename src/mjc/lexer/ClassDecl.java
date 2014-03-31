@@ -10,8 +10,8 @@ import mjc.type_checker.SymTable;
 public class ClassDecl extends SimpleNode {
 
 	private String name;
-	private HashMap<String, VarDecl> variables;
-	private HashMap<String, MethodDecl> methods;
+	private HashMap<String, VarDecl> variables = new HashMap<String, VarDecl>();
+	private HashMap<String, MethodDecl> methods = new HashMap<String, MethodDecl>();
 
 	public ClassDecl(int id) {
 		super(id);
@@ -48,8 +48,6 @@ public class ClassDecl extends SimpleNode {
 	}
 	
 	public void pass1(SymTable symTable) {
-		variables = new HashMap<String, VarDecl>();
-		methods = new HashMap<String, MethodDecl>();
 		for (Node child : children) {
 			if (child instanceof VarDecl) {
 				VarDecl varDecl = (VarDecl) child;

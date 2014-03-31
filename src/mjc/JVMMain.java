@@ -1,10 +1,14 @@
 package mjc;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import mjc.lexer.*;
 import mjc.type_checker.*;
 
+
 public class JVMMain {
-	public static void main(String[] args) throws ParseException {
-        new Lexer(System.in);
+	public static void main(String[] args) throws ParseException, FileNotFoundException {
+        new Lexer(new FileInputStream(args[0]));
         Program program = Lexer.Program();
         
         SymTable symTable = new SymTable();
