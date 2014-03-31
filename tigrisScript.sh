@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #compdir="$1"
-compdir="."
+compdir="./"
 
 if [ ! -d "$compdir" ]
   then
