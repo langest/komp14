@@ -66,7 +66,10 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       jj_consume_token(PUBLIC);
       jj_consume_token(STATIC);
       jj_consume_token(VOID);
-      jj_consume_token(MAIN);
+      jj_consume_token(ID);
+        if (!token.image.equals("main")) {
+            {if (true) throw new ParseException("Expected main method, got " + token.image);}
+        }
       jj_consume_token(LPAREN);
       jj_consume_token(STRING);
       jj_consume_token(LSQPAREN);
@@ -1251,10 +1254,10 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x20000000,0x6002000,0x0,0x40000000,0x6002000,0x20000,0x0,0x0,0x6002000,0x6002000,0x0,0x80000,0x40000,0x600000,0x600000,0x800000,0x100200,0x800,0x10000,0x10800,0x200,0x0,0x20000,0x100200,};
+      jj_la1_0 = new int[] {0x10000000,0x6002000,0x0,0x20000000,0x6002000,0x20000,0x0,0x0,0x6002000,0x6002000,0x0,0x80000,0x40000,0x600000,0x600000,0x800000,0x100200,0x800,0x10000,0x10800,0x200,0x0,0x20000,0x100200,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x802,0xb00,0x0,0x802,0x0,0xb00,0xb00,0x802,0x2,0x800,0x0,0x0,0x0,0x0,0x0,0x185c,0x0,0x0,0x0,0x181c,0x40,0x0,0x185c,};
+      jj_la1_1 = new int[] {0x0,0x401,0x580,0x0,0x401,0x0,0x580,0x580,0x401,0x1,0x400,0x0,0x0,0x0,0x0,0x0,0xc2e,0x0,0x0,0x0,0xc0e,0x20,0x0,0xc2e,};
    }
   static final private JJCalls[] jj_2_rtns = new JJCalls[6];
   static private boolean jj_rescan = false;
@@ -1464,7 +1467,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[45];
+    boolean[] la1tokens = new boolean[44];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -1481,7 +1484,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         }
       }
     }
-    for (int i = 0; i < 45; i++) {
+    for (int i = 0; i < 44; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

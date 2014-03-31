@@ -1,6 +1,5 @@
 package mjc;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import mjc.lexer.*;
 import mjc.type_checker.*;

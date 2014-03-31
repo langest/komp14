@@ -55,39 +55,37 @@ public interface LexerConstants {
   /** RegularExpression Id. */
   int ELSE = 27;
   /** RegularExpression Id. */
-  int MAIN = 28;
+  int CLASS = 28;
   /** RegularExpression Id. */
-  int CLASS = 29;
+  int PUBLIC = 29;
   /** RegularExpression Id. */
-  int PUBLIC = 30;
+  int STATIC = 30;
   /** RegularExpression Id. */
-  int STATIC = 31;
+  int VOID = 31;
   /** RegularExpression Id. */
-  int VOID = 32;
+  int PRINT = 32;
   /** RegularExpression Id. */
-  int PRINT = 33;
+  int TRUE = 33;
   /** RegularExpression Id. */
-  int TRUE = 34;
+  int FALSE = 34;
   /** RegularExpression Id. */
-  int FALSE = 35;
+  int THIS = 35;
   /** RegularExpression Id. */
-  int THIS = 36;
+  int RETURN = 36;
   /** RegularExpression Id. */
-  int RETURN = 37;
+  int NEW = 37;
   /** RegularExpression Id. */
-  int NEW = 38;
+  int LENGTH = 38;
   /** RegularExpression Id. */
-  int LENGTH = 39;
+  int BOOLEAN = 39;
   /** RegularExpression Id. */
-  int BOOLEAN = 40;
+  int INTEGER = 40;
   /** RegularExpression Id. */
-  int INTEGER = 41;
+  int STRING = 41;
   /** RegularExpression Id. */
-  int STRING = 42;
+  int ID = 42;
   /** RegularExpression Id. */
-  int ID = 43;
-  /** RegularExpression Id. */
-  int INT_LIT = 44;
+  int INT_LIT = 43;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -122,7 +120,6 @@ public interface LexerConstants {
     "\"while\"",
     "\"if\"",
     "\"else\"",
-    "\"main\"",
     "\"class\"",
     "\"public\"",
     "\"static\"",

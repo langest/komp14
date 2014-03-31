@@ -48,20 +48,22 @@ public class ClassDecl extends SimpleNode {
 	}
 	
 	public void pass1(SymTable symTable) {
-		for (Node child : children) {
-			if (child instanceof VarDecl) {
-				VarDecl varDecl = (VarDecl) child;
-				if (variables.containsKey(varDecl.getName())) {
-					throw new DummyException("Variable " + varDecl.getName() + " already declared in this scope");
+		if (children != null) {
+			for (Node child : children) {
+				if (child instanceof VarDecl) {
+					VarDecl varDecl = (VarDecl) child;
+					if (variables.containsKey(varDecl.getName())) {
+						throw new DummyException("Variable " + varDecl.getName() + " already declared in this scope");
+					}
+					variables.put(varDecl.getName(), varDecl);
+				} else {
+					MethodDecl methodDecl = (MethodDecl) child;
+					String canonicalName = methodDecl.getCanonicalString();
+					if (methods.containsKey(canonicalName)) {
+						throw new DummyException("Method " + methodDecl.getName() + " already declared in this scope");
+					}
+					methods.put(canonicalName, methodDecl);
 				}
-				variables.put(varDecl.getName(), varDecl);
-			} else {
-				MethodDecl methodDecl = (MethodDecl) child;
-				String canonicalName = methodDecl.getCanonicalString();
-				if (methods.containsKey(canonicalName)) {
-					throw new DummyException("Method " + methodDecl.getName() + " already declared in this scope");
-				}
-				methods.put(canonicalName, methodDecl);
 			}
 		}
 	}

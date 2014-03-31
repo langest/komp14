@@ -5,7 +5,7 @@
 }
 
 PARSER_BEGIN(Lexer)
-package lexer;
+package mjc.lexer;
 
 import java.util.*;
 import java.io.*;
@@ -77,7 +77,6 @@ TOKEN : {
 	< WHILE: "while" >
 | < IF: "if" >
 | < ELSE: "else" >
-| < MAIN: "main" >
 | < CLASS: "class" >
 | < PUBLIC: "public" >
 | < STATIC: "static" >
@@ -167,7 +166,12 @@ void MainClass():
 	<PUBLIC>
 	<STATIC>
 	<VOID>
-	<MAIN>
+	<ID>
+    {
+        if (!token.image.equals("main")) {
+            throw new ParseException("Expected main method, got " + token.image);
+        }
+    }
 	<LPAREN>
 	<STRING>
 	<LSQPAREN>
