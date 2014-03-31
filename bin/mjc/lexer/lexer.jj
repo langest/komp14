@@ -864,7 +864,7 @@ void E5Cont():
 /*@egen*/
     (<LSQPAREN> Exp() <RSQPAREN> { jjtn000.setType(E5Cont.E5ContType.ARRAY_ACCESS); } |
     LOOKAHEAD(2) <DOT> <LENGTH> { jjtn000.setType(E5Cont.E5ContType.LENGTH); } |
-    <DOT> <ID> { jjtn000.setName(token.image); jjtn000.setType(E5Cont.E5ContType.METHOD_INVOCATION); } <LPAREN> ExpList() <RPAREN>)?/*@bgen(jjtree)*/
+    <DOT> <ID> { jjtn000.setName(token.image); jjtn000.setType(E5Cont.E5ContType.METHOD_INVOCATION); } <LPAREN> ExpList() <RPAREN> E5Cont())?/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);

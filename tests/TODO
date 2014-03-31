@@ -1,0 +1,19 @@
+compile:
+[X] Lång kedja av metod-anrop
+
+noncompile:
+[X] Fel namn till main-metoden
+    Variabel av okänd typ
+    Anrop av metod som inte finns
+    Indexering av icke-array
+    .length på icke-array
+    && på icke-booleans
+    <,+,-,* på icke-ints
+    Tilldelning av fel typ
+    Array-tilldelning av fel typ
+    Icke-boolean-expression till if/while
+    Array-initialisering med icke-int
+    ! med icke-boolean
+    Tilldelning av id som inte finns
+    Användning av id som inte finns
+    System.out.println med dålig typ (allt förutom boolean/int?)
