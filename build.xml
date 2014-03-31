@@ -18,10 +18,10 @@
 	<move />
 	-->
 
-  <!-- Creates the  build, docs and dist directory-->
+  <!-- Creates the  build and dist directory-->
   <target name="makedir">
     <mkdir dir="${build.dir}" />
-    <mkdir dir="${docs.dir}" />
+    <mkdir dir="${dist.dir}" />
   </target>
 
   <!-- Compiles the java code (including the usage of library for JUnit -->

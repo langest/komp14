@@ -1,0 +1,334 @@
+options {
+    MULTI=true;
+    NODE_PREFIX="";
+}
+
+PARSER_BEGIN(Lexer)
+package lexer;
+
+import java.util.*;
+import java.io.*;
+
+public class Lexer {
+	/*
+    public static List<Token> parseTokens() {
+        ArrayList<Token> tokens = new ArrayList<Token>();
+        while (true) {
+            Token t = Lexer.getNextToken();
+            if (t.kind == LexerConstants.EOF) break;
+            tokens.add(t);
+        }
+        return tokens;
+    }
+    */
+}
+
+PARSER_END(Lexer)
+
+//Skip white space
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+//Comments
+SPECIAL_TOKEN :
+{
+  <SINGLE_LINE_COMMENT: "//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+| <FORMAL_COMMENT: "/**" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
+| <MULTI_LINE_COMMENT: "/*" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
+}
+
+//Symbols
+TOKEN : 
+{
+  < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LSQPAREN: "[" >
+| < RSQPAREN: "]" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < SEMICOLON: ";" >
+| < DOT: "." >
+| < COMMA: "," >
+| < LT: "<" >
+| < AND : "&&" >   
+| < NOT : "!" >   
+}
+
+//Operators
+TOKEN : {
+	< PLUS: "+" >
+| < MINUS: "-" >
+| < MULT: "*" >
+| < ASSIGN: "=" >
+}
+
+//Keywords
+TOKEN : {
+	< WHILE: "while" >
+| < IF: "if" >
+| < ELSE: "else" >
+| < MAIN: "main" >
+| < CLASS: "class" >
+| < PUBLIC: "public" >
+| < STATIC: "static" >
+| < VOID: "void" >         
+| < PRINT: "System.out.println" >
+| < TRUE: "true" >
+| < FALSE: "false" >
+| < THIS: "this" >
+| < RETURN: "return" >
+| < NEW: "new" >
+| < LENGTH: "length" >
+}
+//Typedefs
+TOKEN : {
+	< BOOLEAN: "boolean" >   
+| < INTEGER: "int" >   
+//| < LONG: "long" >
+| < STRING: "String" >
+}
+
+//Lexicals
+TOKEN : {
+	< ID: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","0"-"9","_"])* >
+| < INT_LIT: "0" | ["1"-"9"](["0"-"9"])* >
+//| < LONG_LIT: 0["l""L"] | ["1"-"9"]["0"-"9"]*["l""L"] >
+}
+
+
+Program Program():
+{}
+{
+	MainClass()
+    (ClassDecl())*
+    <EOF>
+    {
+		System.out.println("Successfully parsed everything");
+        return jjtThis;
+	}
+}
+
+void MainClass():
+{}
+{
+	<CLASS>
+	<ID>
+    {
+        jjtThis.setName(token.image);
+    }
+	<LBRACE>
+	<PUBLIC>
+	<STATIC>
+	<VOID>
+	<MAIN>
+	<LPAREN>
+	<STRING>
+	<LSQPAREN>
+	<RSQPAREN>
+	<ID>
+	<RPAREN>
+	<LBRACE>
+	(LOOKAHEAD(2) VarDecl())*
+    (Stmt())*
+	<RBRACE>
+	<RBRACE>
+}
+
+void ClassDecl():
+{}
+{
+    <CLASS>
+    <ID>
+    {
+        jjtThis.setName(token.image);
+    }
+    <LBRACE>
+    (VarDecl())*
+    (MethodDecl())*
+    <RBRACE>
+}
+
+void VarDecl():
+{}
+
+{
+    Type()
+    <ID>
+    {
+        jjtThis.setName(token.image);
+    }
+    <SEMICOLON>
+}
+
+void MethodDecl():
+{}
+{
+    <PUBLIC>
+    Type()
+    <ID>
+    {
+        jjtThis.setName(token.image);
+    }
+    <LPAREN>
+    FormalList()
+    <RPAREN>
+    <LBRACE>
+    (LOOKAHEAD(2) VarDecl())*
+    (Stmt())*
+    <RETURN>
+    Exp()
+    <SEMICOLON>
+    <RBRACE>
+}
+
+void FormalList():
+{}
+{
+    (Type()
+    <ID>
+    {
+        jjtThis.setName(token.image);
+    }
+    (FormalRest())*)?
+}
+
+void FormalRest():
+{}
+{
+    <COMMA>
+    Type()
+    <ID>
+    {
+        jjtThis.setName(token.image);
+    }
+}
+
+void Type():
+{}
+{
+    LOOKAHEAD(2)
+    <INTEGER> <LSQPAREN> <RSQPAREN> { jjtThis.setType(Type.TypeType.INT_ARRAY); } |
+    <BOOLEAN> { jjtThis.setType(Type.TypeType.BOOLEAN); } |
+    <INTEGER> { jjtThis.setType(Type.TypeType.INT); } |
+    <ID> { jjtThis.setType(Type.TypeType.CUSTOM); jjtThis.setName(token.image); }
+}
+
+void Stmt():
+{}
+{
+    <LBRACE> (Stmt())* <RBRACE> { jjtThis.setType(Stmt.StmtType.BRACES); } |
+    <IF> <LPAREN> Exp() <RPAREN> Stmt() <ELSE> Stmt() { jjtThis.setType(Stmt.StmtType.IF_ELSE); } |
+    <WHILE> <LPAREN> Exp() <RPAREN> Stmt() { jjtThis.setType(Stmt.StmtType.WHILE); } | 
+    <PRINT> <LPAREN> Exp() <RPAREN> <SEMICOLON> { jjtThis.setType(Stmt.StmtType.PRINT); } |
+    LOOKAHEAD(2) <ID> { jjtThis.setName(token.image); } <ASSIGN> Exp() <SEMICOLON> { jjtThis.setType(Stmt.StmtType.ASSIGN); } |
+    <ID> { jjtThis.setName(token.image); } <LSQPAREN> Exp() <RSQPAREN> <ASSIGN> Exp() <SEMICOLON> { jjtThis.setType(Stmt.StmtType.ARRAY_ASSIGN); }
+}
+
+void Exp():
+{}
+{
+    E1()
+}
+
+void E1():
+{}
+{
+    E2()
+    E1Cont()
+}
+
+void E1Cont():
+{}
+{
+    (<AND> E2() E1Cont())?
+}
+
+void E2():
+{}
+{
+    E3()
+    E2Cont()
+}
+
+void E2Cont():
+{}
+{
+    (<LT> E3() E2Cont())?
+}
+
+void E3():
+{}
+{
+    E4()
+    E3Cont()
+}
+
+void E3Cont():
+{}
+{
+    (
+        (
+        <PLUS> { jjtThis.setType(E3Cont.E3ContType.PLUS); } |
+        <MINUS> { jjtThis.setType(E3Cont.E3ContType.MINUS); }
+        ) E4() E3Cont()
+    )?
+}
+
+void E4():
+{}
+{
+    E5()
+    E4Cont()
+}
+
+void E4Cont():
+{}
+{
+    (<MULT> E5() E4Cont())?
+}
+
+void E5():
+{}
+{
+    <NOT> E5() { jjtThis.setType(E5.E5Type.NOT); } |
+    E6() E5Cont()
+}
+
+void E5Cont():
+{}
+{
+    (<LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E5Cont.E5ContType.ARRAY_ACCESS); } |
+    LOOKAHEAD(2) <DOT> <LENGTH> { jjtThis.setType(E5Cont.E5ContType.LENGTH); } |
+    <DOT> <ID> { jjtThis.setName(token.image); jjtThis.setType(E5Cont.E5ContType.METHOD_INVOCATION); } <LPAREN> ExpList() <RPAREN>)? 
+}
+
+void E6():
+{}
+{
+    <ID> { jjtThis.setType(E6.E6Type.ID); jjtThis.setImage(token.image); } |
+    <INT_LIT> { jjtThis.setType(E6.E6Type.INT_LIT); jjtThis.setImage(token.image); } |
+    <TRUE> { jjtThis.setType(E6.E6Type.TRUE); } |
+    <FALSE> { jjtThis.setType(E6.E6Type.FALSE); } |
+    <LPAREN> Exp() <RPAREN> { jjtThis.setType(E6.E6Type.PAREN); } |
+    <THIS> { jjtThis.setType(E6.E6Type.THIS); } |
+    LOOKAHEAD(2) <NEW> <INTEGER> <LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E6.E6Type.NEW_INT_ARRAY); } |
+    <NEW> <ID> { jjtThis.setType(E6.E6Type.NEW_ID); jjtThis.setImage(token.image); } <LPAREN> <RPAREN> 
+}
+
+void ExpList():
+{}
+{
+    (Exp() (ExpRest())*)?
+}
+
+void ExpRest():
+{}
+{
+    <COMMA> Exp()
+}
