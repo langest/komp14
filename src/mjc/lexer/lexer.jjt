@@ -309,7 +309,7 @@ void E5Cont():
 {
     (<LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E5Cont.E5ContType.ARRAY_ACCESS); } |
     LOOKAHEAD(2) <DOT> <LENGTH> { jjtThis.setType(E5Cont.E5ContType.LENGTH); } |
-    <DOT> <ID> { jjtThis.setName(token.image); jjtThis.setType(E5Cont.E5ContType.METHOD_INVOCATION); } <LPAREN> ExpList() <RPAREN>)? 
+    <DOT> <ID> { jjtThis.setName(token.image); jjtThis.setType(E5Cont.E5ContType.METHOD_INVOCATION); } <LPAREN> ExpList() <RPAREN> E5Cont())? 
 }
 
 void E6():

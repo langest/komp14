@@ -911,6 +911,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
               jj_consume_token(LPAREN);
               ExpList();
               jj_consume_token(RPAREN);
+              E5Cont();
               break;
             default:
               jj_la1[18] = jj_gen;
