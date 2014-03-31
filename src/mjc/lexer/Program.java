@@ -3,6 +3,7 @@
 package mjc.lexer;
 
 import java.util.*;
+import java.io.*;
 
 import mjc.type_checker.SymTable;
 
@@ -29,6 +30,20 @@ public class Program extends SimpleNode {
 			classDecl.pass1(symTable);
 			symTable.closeScope();
 			symTable.addClassNode(classDecl);
+		}
+	}
+	
+	public void printEmptyFiles() throws IOException {
+		for (Node child: children) {
+			String name;
+			if (child instanceof MainClass) {
+				name = ((MainClass)child).getname();
+			} else {
+				name = ((ClassDecl)child).getName();
+			}
+			PrintWriter out = new PrintWriter(new FileWriter(name + ".j"));
+			out.println();
+			out.close();
 		}
 	}
 

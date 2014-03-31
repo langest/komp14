@@ -5,3 +5,5 @@ build/*
 dist/*
 *.pdf
 DESC
+*.j
+mjc.jar

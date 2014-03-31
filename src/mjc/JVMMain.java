@@ -7,13 +7,14 @@ import mjc.type_checker.*;
 
 
 public class JVMMain {
-	public static void main(String[] args) throws ParseException, FileNotFoundException {
+	public static void main(String[] args) throws Exception {
         new Lexer(new FileInputStream(args[0]));
         Program program = Lexer.Program();
         
         SymTable symTable = new SymTable();
         program.pass1(symTable);
         symTable.printClasses();
+        program.printEmptyFiles();
 	}
 	
 	public static void printTree(SimpleNode node, String prefix) {
