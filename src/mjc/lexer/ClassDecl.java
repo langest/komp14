@@ -4,6 +4,8 @@ package mjc.lexer;
 
 import java.util.*;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 import mjc.errors.DummyException;
 import mjc.type_checker.SymTable;
 
@@ -58,11 +60,24 @@ public class ClassDecl extends SimpleNode {
 					variables.put(varDecl.getName(), varDecl);
 				} else {
 					MethodDecl methodDecl = (MethodDecl) child;
-					String canonicalName = methodDecl.getCanonicalString();
-					if (methods.containsKey(canonicalName)) {
+					String methodName = methodDecl.getName();
+					if (methods.containsKey(methodName)) {
 						throw new DummyException("Method " + methodDecl.getName() + " already declared in this scope");
 					}
-					methods.put(canonicalName, methodDecl);
+					methods.put(methodName, methodDecl);
+				}
+			}
+		}
+	}
+	
+	public void pass2(SymTable symTable) {
+		symTable.setCurrentClass(this);
+		if (children != null) {
+			for (Node child : children) {
+				if (child instanceof MethodDecl) {
+					symTable.openScope();
+					((MethodDecl)child).pass2(symTable);
+					symTable.closeScope();
 				}
 			}
 		}

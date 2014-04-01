@@ -2,8 +2,11 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class E2Cont extends SimpleNode {
+import mjc.errors.TypeError;
+import mjc.lexer.E3Cont.E3ContType;
+import mjc.type_checker.SymTable;
+
+public class E2Cont extends SimpleNode {
 	public E2Cont(int id) {
 		super(id);
 	}
@@ -14,6 +17,18 @@ class E2Cont extends SimpleNode {
 	
 	public String toString() {
 		return super.toString() + " " + (children != null ? "<" : "");
+	}
+	
+	public Type pass2(SymTable symTable, Type type) {
+		if (children != null) {
+			Type type2 = ((E3)children[0]).pass2(symTable);
+			if (!type.isInt() || !type2.isInt()) {
+				throw new TypeError("Invalid types for < comparison: " + type.toShortString() + " and " + type2.toShortString());
+			}
+			return ((E2Cont)children[1]).pass2(symTable, Type.createBooleanType());
+		} else {
+			return type;
+		}
 	}
 
 }

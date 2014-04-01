@@ -2,14 +2,27 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class E4Cont extends SimpleNode {
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
+public class E4Cont extends SimpleNode {
 	public E4Cont(int id) {
 		super(id);
 	}
 
 	public E4Cont(Lexer p, int id) {
 		super(p, id);
+	}
+	
+	public Type pass2(SymTable symTable, Type type) {
+		if (children != null) {
+			Type type2 = ((E5)children[0]).pass2(symTable);
+			if (!type.isInt() || !type2.isInt()) {
+				throw new TypeError("Invalid types for multiplication: " + type.toShortString() + " and " + type2.toShortString());
+			}
+			return ((E4Cont)children[1]).pass2(symTable, type2);
+		}
+		return type;
 	}
 	
 	public String toString() {

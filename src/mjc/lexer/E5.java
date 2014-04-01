@@ -2,11 +2,13 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class E5 extends SimpleNode {
-	
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
+public class E5 extends SimpleNode {
+
 	private E5Type type;
-	
+
 	public E5(int id) {
 		super(id);
 	}
@@ -14,19 +16,32 @@ class E5 extends SimpleNode {
 	public E5(Lexer p, int id) {
 		super(p, id);
 	}
-	
+
 	public void setType(E5Type type) {
 		this.type = type;
 	}
-	
+
 	public E5Type getType() {
 		return type;
 	}
-	
+
 	public enum E5Type {
 		NOT;
 	}
 	
+	public Type pass2(SymTable symTable) {
+		if (type != null) {
+			Type type = ((E5)children[0]).pass2(symTable);
+			if (!type.isBoolean()) {
+				throw new TypeError("Invalid type for operator !: " + type.toShortString());
+			}
+			return type;
+		} else {
+			Type type = ((E6)children[0]).pass2(symTable);
+			return ((E5Cont)children[1]).pass2(symTable, type);
+		}
+	}
+
 	public String toString() {
 		return super.toString() + " " + (type != null ? "!" : "");
 	}

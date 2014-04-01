@@ -2,15 +2,21 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class E1 extends SimpleNode {
-  public E1(int id) {
-    super(id);
-  }
+import mjc.type_checker.SymTable;
 
-  public E1(Lexer p, int id) {
-    super(p, id);
-  }
+public class E1 extends SimpleNode {
+	public E1(int id) {
+		super(id);
+	}
+
+	public E1(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public Type pass2(SymTable symTable) {
+		Type type = ((E2)children[0]).pass2(symTable);
+		return ((E1Cont)children[1]).pass2(symTable, type);
+	}
 
 }
 /* JavaCC - OriginalChecksum=8af27ac5c207015fa16589f12c3159c2 (do not edit this line) */

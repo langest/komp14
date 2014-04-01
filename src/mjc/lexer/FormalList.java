@@ -4,6 +4,8 @@ package mjc.lexer;
 
 import java.util.*;
 
+import mjc.type_checker.SymTable;
+
 public class FormalList extends SimpleNode {
 
 	private String name;
@@ -24,11 +26,14 @@ public class FormalList extends SimpleNode {
 		this.name = name;
 	}
 	
-	public void appendCanonicalName(StringBuilder sb) {
-		if (children != null && children.length > 0) {
-			sb.append(((Type)children[0]).toShortString());
+	public void pass2(SymTable symTable) {
+		if (children != null) {
+			Type type = (Type)children[0];
+			type.pass2(symTable);
+			VarDecl varDecl = VarDecl.createVarDecl(type, name);
+			symTable.addVariableNode(varDecl);
 			for (int i = 1; i < children.length; i++) {
-				((FormalRest)children[i]).appendCanonicalString(sb);
+				((FormalRest)children[i]).pass2(symTable);
 			}
 		}
 	}

@@ -2,8 +2,10 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class E1Cont extends SimpleNode {
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
+public class E1Cont extends SimpleNode {
 	public E1Cont(int id) {
 		super(id);
 	}
@@ -14,6 +16,18 @@ class E1Cont extends SimpleNode {
 	
 	public String toString() {
 		return super.toString() + " " + (children != null ? "&&" : "");
+	}
+	
+	public Type pass2(SymTable symTable, Type type) {
+		if (children != null) {
+			Type type2 = ((E2)children[0]).pass2(symTable);
+			if (!type.isBoolean() || !type2.isBoolean()) {
+				throw new TypeError("Invalid types for && operation: " + type.toShortString() + " and " + type2.toShortString());
+			}
+			return ((E1Cont)children[1]).pass2(symTable, type2);
+		} else {
+			return type;
+		}
 	}
 
 }

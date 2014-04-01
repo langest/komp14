@@ -2,6 +2,10 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import mjc.errors.DummyException;
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
 public
 class E6 extends SimpleNode {
 	
@@ -34,6 +38,39 @@ class E6 extends SimpleNode {
 	
 	public String getImage() {
 		return image;
+	}
+	
+	public Type pass2(SymTable symTable) {
+		if (type == E6Type.ID) {
+			VarDecl varDecl = symTable.getVariableNode(image);
+			return varDecl.getType();
+		} else if (type == E6Type.INT_LIT) {
+			try {
+				int val = Integer.parseInt(image);
+			} catch (NumberFormatException e) {
+				throw new DummyException("Invalid value for integer literal: " + image);
+			}
+			return Type.createIntType();
+		} else if (type == E6Type.TRUE) {
+			return Type.createBooleanType();
+		} else if (type == E6Type.FALSE) {
+			return Type.createBooleanType();
+		} else if (type == E6Type.PAREN) {
+			return ((Exp)children[0]).pass2(symTable);
+		} else if (type == E6Type.THIS) {
+			return Type.createCustomType(symTable.getCurrentClass().getName());
+		} else if (type == E6Type.NEW_INT_ARRAY) {
+			Type arraySize = ((Exp)children[0]).pass2(symTable);
+			if (!arraySize.isInt()) {
+				throw new TypeError("Non-int argument for array initialization");
+			}
+			return Type.createIntArrayType();
+		} else if (type == E6Type.NEW_ID) {
+			ClassDecl classDecl = symTable.getClassNode(image);
+			return Type.createCustomType(classDecl.getName());
+		} else {
+			throw new DummyException("Unknown E6Type");
+		}
 	}
 	
 	public String toString() {

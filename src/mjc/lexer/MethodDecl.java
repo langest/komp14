@@ -2,6 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
 public
 class MethodDecl extends SimpleNode {
 
@@ -23,20 +26,33 @@ class MethodDecl extends SimpleNode {
 		this.name = name;
 	}
 	
-	public String getCanonicalString() {
-		StringBuilder sb = new StringBuilder(name);
-		sb.append('(');
-		((FormalList)children[1]).appendCanonicalName(sb);
-		sb.append(')');
-		return sb.toString();
-	}
-	
-	public static String getCanonicalString(String name, ExpList expList) {
-		return null; // TODO
-	}
-	
 	public String toString() {
 		return super.toString() + "(" + name + ")";
+	}
+	
+	public Type getReturnType() {
+		return (Type)children[0];
+	}
+	
+	public FormalList getParameters() {
+		return (FormalList) children[1];
+	}
+	
+	public void pass2(SymTable symTable) {
+		System.out.println("Checking method " + name);
+		((Type)children[0]).pass2(symTable);
+		((FormalList)children[1]).pass2(symTable);
+		for (int i = 2; i < children.length - 1; i++) {
+			if (children[i] instanceof VarDecl) {
+				((VarDecl)children[i]).pass2(symTable);
+			} else {
+				((Stmt)children[i]).pass2(symTable);
+			}
+		}
+		Type returnType = ((Exp)children[children.length - 1]).pass2(symTable);
+		if (!returnType.equals(getReturnType())) {
+			throw new TypeError("Invalid return type for method " + name + ": got " + returnType.toShortString() + ", expected " + getReturnType().toShortString());
+		}
 	}
 
 }

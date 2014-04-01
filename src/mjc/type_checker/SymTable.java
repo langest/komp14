@@ -15,6 +15,7 @@ public class SymTable {
 	public void openScope() {
 		Layer newLayer = new Layer();
 		newLayer.parent = current;
+		newLayer.currentClass = newLayer.parent.currentClass;
 		current = newLayer;
 	}
 	
@@ -29,6 +30,51 @@ public class SymTable {
 		current.classes.put(classNode.getName(), classNode);
 	}
 	
+	public ClassDecl getClassNode(String className) {
+		Layer layer = current;
+		while (layer != null) {
+			if (layer.classes.containsKey(className)) {
+				return layer.classes.get(className);
+			}
+			layer = layer.parent;
+		}
+		throw new DummyException("Undefined class name: " + className);
+	}
+	
+	public void setCurrentClass(ClassDecl classDecl) {
+		current.currentClass = classDecl;
+	}
+	
+	public ClassDecl getCurrentClass() {
+		return current.currentClass;
+	}
+	
+	public void addVariableNode(VarDecl varNode) {
+		Layer layer = current;
+		while (layer != null) {
+			if (layer.variables.containsKey(varNode.getName())) {
+				throw new DummyException("Variable name " + varNode.getName() + " was already declared in this scope");
+			}
+			layer = layer.parent;
+		}
+		current.variables.put(varNode.getName(), varNode);
+	}
+	
+	public VarDecl getVariableNode(String variableName) {
+		Layer layer = current;
+		while (layer != null) {
+			if (layer.variables.containsKey(variableName)) {
+				return layer.variables.get(variableName);
+			}
+			layer = layer.parent;
+		}
+		// No local variable found, try class variable
+		if (current.currentClass != null) {
+			return current.currentClass.getVariable(variableName);
+		}
+		throw new DummyException("Undefined variable name: " + variableName);
+	}
+	
 	public void printClasses() {
 		for (String c : current.classes.keySet()) {
 			System.out.println("Class " + c + ":");
@@ -38,11 +84,13 @@ public class SymTable {
 	
 	static class Layer {
 		private Layer parent;
+		private ClassDecl currentClass;
 		private HashMap<String, VarDecl> variables;
 		private HashMap<String, ClassDecl> classes;
 		
 		private Layer() {
 			parent = null;
+			currentClass = null;
 			variables = new HashMap<String, VarDecl>();
 			classes = new HashMap<String, ClassDecl>();
 		}

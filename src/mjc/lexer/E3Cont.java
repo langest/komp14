@@ -2,6 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
 public
 class E3Cont extends SimpleNode {
 
@@ -25,6 +28,24 @@ class E3Cont extends SimpleNode {
 
 	public enum E3ContType {
 		PLUS, MINUS;
+	}
+	
+	public Type pass2(SymTable symTable, Type inputType) {
+		if (type == E3ContType.PLUS) {
+			Type type2 = ((E4)children[0]).pass2(symTable);
+			if (!inputType.isInt() || !type2.isInt()) {
+				throw new TypeError("Invalid types for addition: " + inputType.toShortString() + " and " + type2.toShortString());
+			}
+			return ((E3Cont)children[1]).pass2(symTable, type2);
+		} else if (type == E3ContType.MINUS) {
+			Type type2 = ((E4)children[0]).pass2(symTable);
+			if (!inputType.isInt() || !type2.isInt()) {
+				throw new TypeError("Invalid types for subtraction: " + inputType.toShortString() + " and " + type2.toShortString());
+			}
+			return ((E3Cont)children[1]).pass2(symTable, type2);
+		} else {
+			return inputType;
+		}
 	}
 	
 	public String toString() {

@@ -13,6 +13,7 @@ public class JVMMain {
         SymTable symTable = new SymTable();
         program.pass1(symTable);
         symTable.printClasses();
+        program.pass2(symTable);
         program.printEmptyFiles();
 	}
 	

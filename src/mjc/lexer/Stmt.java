@@ -2,6 +2,10 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import mjc.errors.DummyException;
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
+
 public class Stmt extends SimpleNode {
 
 	private StmtType type;
@@ -33,6 +37,58 @@ public class Stmt extends SimpleNode {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void pass2(SymTable symTable) {
+		System.out.println("Visiting statement");
+		if (type == StmtType.BRACES) {
+			symTable.openScope();
+			if (children != null) {
+				for (Node child : children) {
+					((Stmt)child).pass2(symTable);
+				}
+			}
+			symTable.closeScope();
+		} else if (type == StmtType.IF_ELSE) {
+			Type type = ((Exp)children[0]).pass2(symTable);
+			if (!type.isBoolean()) {
+				throw new TypeError("Expected boolean expression, got " + type.toShortString());
+			}
+			((Stmt)children[1]).pass2(symTable);
+			((Stmt)children[2]).pass2(symTable);
+		} else if (type == StmtType.WHILE) {
+			Type type = ((Exp)children[0]).pass2(symTable);
+			if (!type.isBoolean()) {
+				throw new TypeError("Expected boolean expression, got " + type.toShortString());
+			}
+			((Stmt)children[1]).pass2(symTable);
+		} else if (type == StmtType.PRINT) {
+			Type type = ((Exp)children[0]).pass2(symTable);
+			if (!type.isBoolean() && !type.isInt()) {
+				throw new TypeError("Invalid type for printing: " + type.toShortString());
+			}
+		} else if (type == StmtType.ASSIGN) {
+			VarDecl assignVariable = symTable.getVariableNode(name);
+			Type type = ((Exp)children[0]).pass2(symTable);
+			if (!type.equals(assignVariable.getType())) {
+				throw new TypeError("Incompatible types for variable assignment: " + type.toShortString() + " and " + assignVariable.getType().toShortString());
+			}
+		} else if (type == StmtType.ARRAY_ASSIGN) {
+			VarDecl assignVariable = symTable.getVariableNode(name);
+			if (!assignVariable.getType().isIntArray()) {
+				throw new TypeError("Trying to index non-array: " + assignVariable.getType().toShortString());
+			}
+			Type type = ((Exp)children[0]).pass2(symTable);
+			if (!type.isInt()) {
+				throw new TypeError("Non-int type for array index: " + type.toShortString());
+			}
+			Type type2 = ((Exp)children[1]).pass2(symTable);
+			if (!type2.isInt()) {
+				throw new TypeError("Invalid type for array assignment: " + type2.toShortString());
+			}
+		} else {
+			throw new DummyException("Unknown Stmt type");
+		}
 	}
 	
 	public String toString() {

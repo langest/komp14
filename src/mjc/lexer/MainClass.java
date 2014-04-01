@@ -2,8 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class MainClass extends SimpleNode {
+import mjc.type_checker.SymTable;
+
+public class MainClass extends SimpleNode {
 	
 	private String name;
 	
@@ -21,6 +22,16 @@ class MainClass extends SimpleNode {
   
   public String getname() {
 	  return name;
+  }
+  
+  public void pass2(SymTable symTable) {
+	  for (Node child: children) {
+		  if (child instanceof VarDecl) {
+			  ((VarDecl)child).pass2(symTable);
+		  } else {
+			  ((Stmt)child).pass2(symTable);
+		  }
+	  }
   }
   
   public String toString() {

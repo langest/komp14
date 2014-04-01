@@ -2,15 +2,25 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class ExpRest extends SimpleNode {
-  public ExpRest(int id) {
-    super(id);
-  }
+import mjc.errors.TypeError;
+import mjc.type_checker.SymTable;
 
-  public ExpRest(Lexer p, int id) {
-    super(p, id);
-  }
+public class ExpRest extends SimpleNode {
+	public ExpRest(int id) {
+		super(id);
+	}
+
+	public ExpRest(Lexer p, int id) {
+		super(p, id);
+	}
+	
+	public void pass2(SymTable symTable, FormalRest parameter) {
+		Type type1 = ((Exp)children[0]).pass2(symTable);
+		Type type2 = (Type)parameter.children[0];
+		if (!type1.equals(type2)) {
+			throw new TypeError("mismatching types for parameter: got " + type1.toShortString() + ", expected " + type2.toShortString());
+		}
+	}
 
 }
 /* JavaCC - OriginalChecksum=b9eee3b5993976e8b9c8b940de4393ed (do not edit this line) */

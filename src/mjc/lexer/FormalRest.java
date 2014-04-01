@@ -2,8 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class FormalRest extends SimpleNode {
+import mjc.type_checker.SymTable;
+
+public class FormalRest extends SimpleNode {
 
 	private String name;
 
@@ -23,9 +24,11 @@ class FormalRest extends SimpleNode {
 		this.name = name;
 	}
 	
-	public void appendCanonicalString(StringBuilder sb) {
-		sb.append(',');
-		sb.append(((Type)children[0]).toShortString());
+	public void pass2(SymTable symTable) {
+		Type type = (Type)children[0];
+		type.pass2(symTable);
+		VarDecl varDecl = VarDecl.createVarDecl(type, name);
+		symTable.addVariableNode(varDecl);
 	}
 	
 	public String toString() {

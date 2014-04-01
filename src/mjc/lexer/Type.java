@@ -2,11 +2,13 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
-public
-class Type extends SimpleNode {
+import mjc.type_checker.SymTable;
+
+public class Type extends SimpleNode {
 
 	private String name;
 	private TypeType type;
+	private ClassDecl classDecl;
 
 	public Type(int id) {
 		super(id);
@@ -36,6 +38,32 @@ class Type extends SimpleNode {
 		return type;
 	}
 	
+	public void pass2(SymTable symTable) {
+		if (type == TypeType.CUSTOM) {
+			classDecl = symTable.getClassNode(name);
+		}
+	}
+	
+	public ClassDecl getClassDecl() {
+		return classDecl;
+	}
+	
+	public boolean isCustom() {
+		return type == TypeType.CUSTOM;
+	}
+	
+	public boolean isBoolean() {
+		return type == TypeType.BOOLEAN;
+	}
+	
+	public boolean isInt() {
+		return type == TypeType.INT;
+	}
+	
+	public boolean isIntArray() {
+		return type == TypeType.INT_ARRAY;
+	}
+	
 	public String toShortString() {
 		if (type == TypeType.CUSTOM) return name;
 		return type.toString();
@@ -44,6 +72,41 @@ class Type extends SimpleNode {
 	public String toString() {
 		if (type == TypeType.CUSTOM) return super.toString() + "(" + name + ")";
 		else return super.toString() + "(" + type + ")";
+	}
+	
+	public boolean equals(Object o) {
+		if (!(o instanceof Type)) return false;
+		Type t = (Type)o;
+		if (t.type != type) return false;
+		if (type == TypeType.CUSTOM && !t.name.equals(name)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static Type createIntType() {
+		Type res = new Type(LexerTreeConstants.JJTTYPE);
+		res.setType(Type.TypeType.INT);
+		return res;
+	}
+	
+	public static Type createIntArrayType() {
+		Type res = new Type(LexerTreeConstants.JJTTYPE);
+		res.setType(Type.TypeType.INT_ARRAY);
+		return res;
+	}
+	
+	public static Type createBooleanType() {
+		Type res = new Type(LexerTreeConstants.JJTTYPE);
+		res.setType(Type.TypeType.BOOLEAN);
+		return res;
+	}
+	
+	public static Type createCustomType(String id) {
+		Type res = new Type(LexerTreeConstants.JJTTYPE);
+		res.setType(Type.TypeType.CUSTOM);
+		res.setName(id);
+		return res;
 	}
 
 }

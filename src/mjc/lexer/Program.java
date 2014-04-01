@@ -33,6 +33,17 @@ public class Program extends SimpleNode {
 		}
 	}
 	
+	public void pass2(SymTable symTable) {
+		symTable.openScope();
+		((MainClass)children[0]).pass2(symTable);
+		symTable.closeScope();
+		for (int i = 1; i < children.length; i++) {
+			symTable.openScope();
+			((ClassDecl)children[i]).pass2(symTable);
+			symTable.closeScope();
+		}
+	}
+	
 	public void printEmptyFiles() throws IOException {
 		for (Node child: children) {
 			String name;
