@@ -1,7 +1,9 @@
 class Main {
 	public static void main(String[] args) {
-		Foo f = new Foo();
-		Bar b = new Bar();
+		Foo f;
+        Bar b;
+        f = new Foo();
+		b = new Bar();
 	}
 }
 

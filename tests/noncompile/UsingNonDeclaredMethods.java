@@ -1,8 +1,10 @@
 class Main {
 	public static void main(String[] args) {
-		Foo foo = new Foo();
-		foo.bar();
-		foo.idontexist();
+		Foo foo;
+        int a;
+        foo = new Foo();
+		a = foo.bar();
+		a = a + foo.idontexist();
 	}
 }
 

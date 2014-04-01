@@ -1,15 +1,15 @@
 class Main {
-	public static main(String[] args) {
+	public static void main(String[] args) {
 		
 	}
 }
 
 class Foo {
-	public void bar() {
-
+	public int bar() {
+        return 1;
 	}
 
-	public void bar() {
-
+	public int bar() {
+        return 2;
 	}
 }
