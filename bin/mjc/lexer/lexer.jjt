@@ -90,7 +90,6 @@ TOKEN : {
 	< BOOLEAN: "boolean" >   
 | < INTEGER: "int" >   
 //| < LONG: "long" >
-| < STRING: "String" >
 }
 
 //Lexicals
@@ -132,7 +131,12 @@ void MainClass():
         }
     }
 	<LPAREN>
-	<STRING>
+	<ID>
+    {
+        if (!token.image.equals("String")) {
+            throw new ParseException("Expected token \"String\", got " + token.image);
+        }
+    }
 	<LSQPAREN>
 	<RSQPAREN>
 	<ID>
