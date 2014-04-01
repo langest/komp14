@@ -891,10 +891,12 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       case DOT:
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case LSQPAREN:
+       String prevToken = token.image;
           jj_consume_token(LSQPAREN);
+                                                      if (prevToken.equals("]")) {if (true) throw new ParseException("No support for multidimensional arrays");}
           Exp();
           jj_consume_token(RSQPAREN);
-                                   jjtn000.setType(E5Cont.E5ContType.ARRAY_ACCESS);
+                                                                                                                                                                          jjtn000.setType(E5Cont.E5ContType.ARRAY_ACCESS);
           break;
         default:
           jj_la1[17] = jj_gen;
