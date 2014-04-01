@@ -71,7 +71,10 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
             {if (true) throw new ParseException("Expected main method, got " + token.image);}
         }
       jj_consume_token(LPAREN);
-      jj_consume_token(STRING);
+      jj_consume_token(ID);
+        if (!token.image.equals("String")) {
+            {if (true) throw new ParseException("Expected token \u005c"String\u005c", got " + token.image);}
+        }
       jj_consume_token(LSQPAREN);
       jj_consume_token(RSQPAREN);
       jj_consume_token(ID);
@@ -1164,18 +1167,9 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     finally { jj_save(5, xla); }
   }
 
-  static private boolean jj_3R_15() {
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_14() {
-    if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_13() {
-    if (jj_scan_token(BOOLEAN)) return true;
+  static private boolean jj_3_5() {
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(LENGTH)) return true;
     return false;
   }
 
@@ -1201,12 +1195,6 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
-  static private boolean jj_3_5() {
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(LENGTH)) return true;
-    return false;
-  }
-
   static private boolean jj_3_1() {
     if (jj_3R_11()) return true;
     return false;
@@ -1218,20 +1206,35 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
-  static private boolean jj_3_2() {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
   static private boolean jj_3_4() {
     if (jj_scan_token(ID)) return true;
     if (jj_scan_token(ASSIGN)) return true;
     return false;
   }
 
+  static private boolean jj_3_2() {
+    if (jj_3R_11()) return true;
+    return false;
+  }
+
   static private boolean jj_3_6() {
     if (jj_scan_token(NEW)) return true;
     if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_15() {
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_14() {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_13() {
+    if (jj_scan_token(BOOLEAN)) return true;
     return false;
   }
 
@@ -1258,7 +1261,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       jj_la1_0 = new int[] {0x10000000,0x6002000,0x0,0x20000000,0x6002000,0x20000,0x0,0x0,0x6002000,0x6002000,0x0,0x80000,0x40000,0x600000,0x600000,0x800000,0x100200,0x800,0x10000,0x10800,0x200,0x0,0x20000,0x100200,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x401,0x580,0x0,0x401,0x0,0x580,0x580,0x401,0x1,0x400,0x0,0x0,0x0,0x0,0x0,0xc2e,0x0,0x0,0x0,0xc0e,0x20,0x0,0xc2e,};
+      jj_la1_1 = new int[] {0x0,0x201,0x380,0x0,0x201,0x0,0x380,0x380,0x201,0x1,0x200,0x0,0x0,0x0,0x0,0x0,0x62e,0x0,0x0,0x0,0x60e,0x20,0x0,0x62e,};
    }
   static final private JJCalls[] jj_2_rtns = new JJCalls[6];
   static private boolean jj_rescan = false;
@@ -1468,7 +1471,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[44];
+    boolean[] la1tokens = new boolean[43];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -1485,7 +1488,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         }
       }
     }
-    for (int i = 0; i < 44; i++) {
+    for (int i = 0; i < 43; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

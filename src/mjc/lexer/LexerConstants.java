@@ -81,11 +81,9 @@ public interface LexerConstants {
   /** RegularExpression Id. */
   int INTEGER = 40;
   /** RegularExpression Id. */
-  int STRING = 41;
+  int ID = 41;
   /** RegularExpression Id. */
-  int ID = 42;
-  /** RegularExpression Id. */
-  int INT_LIT = 43;
+  int INT_LIT = 42;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -133,7 +131,6 @@ public interface LexerConstants {
     "\"length\"",
     "\"boolean\"",
     "\"int\"",
-    "\"String\"",
     "<ID>",
     "<INT_LIT>",
   };
