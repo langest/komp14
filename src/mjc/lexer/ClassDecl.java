@@ -4,8 +4,6 @@ package mjc.lexer;
 
 import java.util.*;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
 import mjc.errors.DummyException;
 import mjc.type_checker.SymTable;
 

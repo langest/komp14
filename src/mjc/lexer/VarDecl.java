@@ -26,7 +26,6 @@ class VarDecl extends SimpleNode {
 	}
 	
 	public void pass2(SymTable symTable) {
-		System.out.println("Visiting Vardecl " + name);
 		getType().pass2(symTable);
 		symTable.addVariableNode(this);
 	}

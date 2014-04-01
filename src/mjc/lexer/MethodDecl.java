@@ -39,7 +39,6 @@ class MethodDecl extends SimpleNode {
 	}
 	
 	public void pass2(SymTable symTable) {
-		System.out.println("Checking method " + name);
 		((Type)children[0]).pass2(symTable);
 		((FormalList)children[1]).pass2(symTable);
 		for (int i = 2; i < children.length - 1; i++) {

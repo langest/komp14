@@ -25,12 +25,14 @@ public class MainClass extends SimpleNode {
   }
   
   public void pass2(SymTable symTable) {
-	  for (Node child: children) {
-		  if (child instanceof VarDecl) {
-			  ((VarDecl)child).pass2(symTable);
-		  } else {
-			  ((Stmt)child).pass2(symTable);
-		  }
+	  if (children != null) {
+		  for (Node child: children) {
+			  if (child instanceof VarDecl) {
+				  ((VarDecl)child).pass2(symTable);
+			  } else {
+				  ((Stmt)child).pass2(symTable);
+			  }
+		  } 
 	  }
   }
   

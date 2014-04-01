@@ -40,7 +40,6 @@ public class Stmt extends SimpleNode {
 	}
 	
 	public void pass2(SymTable symTable) {
-		System.out.println("Visiting statement");
 		if (type == StmtType.BRACES) {
 			symTable.openScope();
 			if (children != null) {
