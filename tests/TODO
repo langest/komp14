@@ -1,5 +1,6 @@
 compile:
 [X] Lång kedja av metod-anrop
+[X] String som variabelnamn
 
 noncompile:
 [X] Fel namn till main-metoden
