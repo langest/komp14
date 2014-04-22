@@ -4,8 +4,7 @@ package mjc.lexer;
 
 import mjc.type_checker.SymTable;
 
-public
-class VarDecl extends SimpleNode {
+public class VarDecl extends SimpleNode {
 
 	private String name;
 

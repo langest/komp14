@@ -2,6 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
+
+import java.io.IOException;
 import java.util.*;
 
 import mjc.errors.DummyException;
@@ -68,7 +71,8 @@ public class ClassDecl extends SimpleNode {
 		}
 	}
 	
-	public void pass2(SymTable symTable) {
+	public void pass2(SymTable symTable) throws IOException {
+		JasminPrinter.openClass(name);
 		symTable.setCurrentClass(this);
 		if (children != null) {
 			for (Node child : children) {
@@ -79,6 +83,7 @@ public class ClassDecl extends SimpleNode {
 				}
 			}
 		}
+		JasminPrinter.closeClass();
 	}
 	
 	public void printMethodsAndVariables() {

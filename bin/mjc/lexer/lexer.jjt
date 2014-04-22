@@ -307,7 +307,7 @@ void E5():
 void E5Cont():
 {}
 {
-    (<LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E5Cont.E5ContType.ARRAY_ACCESS); } |
+    ({ String prevToken = token.image; } <LSQPAREN> { if (prevToken.equals("]")) throw new ParseException("No support for multidimensional arrays"); } Exp() <RSQPAREN> { jjtThis.setType(E5Cont.E5ContType.ARRAY_ACCESS); } |
     LOOKAHEAD(2) <DOT> <LENGTH> { jjtThis.setType(E5Cont.E5ContType.LENGTH); } |
     <DOT> <ID> { jjtThis.setName(token.image); jjtThis.setType(E5Cont.E5ContType.METHOD_INVOCATION); } <LPAREN> ExpList() <RPAREN> E5Cont())? 
 }

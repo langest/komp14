@@ -33,7 +33,7 @@ public class Program extends SimpleNode {
 		}
 	}
 	
-	public void pass2(SymTable symTable) {
+	public void pass2(SymTable symTable) throws IOException {
 		symTable.openScope();
 		((MainClass)children[0]).pass2(symTable);
 		symTable.closeScope();

@@ -1,5 +1,6 @@
 package mjc;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import mjc.lexer.*;
 import mjc.type_checker.*;
@@ -13,8 +14,12 @@ public class JVMMain {
         SymTable symTable = new SymTable();
         program.pass1(symTable);
         symTable.printClasses();
-        program.pass2(symTable);
-        program.printEmptyFiles();
+        try {
+            program.pass2(symTable);
+        } catch (IOException e) {
+        	System.err.println("Error while printing files");
+        	System.exit(1);
+        }
 	}
 	
 	public static void printTree(SimpleNode node, String prefix) {

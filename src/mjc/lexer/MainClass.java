@@ -2,6 +2,9 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import java.io.IOException;
+
+import generator.JasminPrinter;
 import mjc.type_checker.SymTable;
 
 public class MainClass extends SimpleNode {
@@ -24,7 +27,9 @@ public class MainClass extends SimpleNode {
 	  return name;
   }
   
-  public void pass2(SymTable symTable) {
+  public void pass2(SymTable symTable) throws IOException {
+	  JasminPrinter.openClass(name);
+	  JasminPrinter.openMainMethod();
 	  if (children != null) {
 		  for (Node child: children) {
 			  if (child instanceof VarDecl) {
@@ -34,6 +39,12 @@ public class MainClass extends SimpleNode {
 			  }
 		  } 
 	  }
+	  // TODO calculate limits
+	  JasminPrinter.print_limit_locals(150);
+	  JasminPrinter.print_limit_stack(150);
+	  JasminPrinter.print_return();
+	  JasminPrinter.closeMethod();
+	  JasminPrinter.closeClass();
   }
   
   public String toString() {
