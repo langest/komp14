@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
 
@@ -24,6 +25,7 @@ public class E1Cont extends SimpleNode {
 			if (!type.isBoolean() || !type2.isBoolean()) {
 				throw new TypeError("Invalid types for && operation: " + type.toShortString() + " and " + type2.toShortString());
 			}
+			JasminPrinter.print_iand();
 			return ((E1Cont)children[1]).pass2(symTable, type2);
 		} else {
 			return type;

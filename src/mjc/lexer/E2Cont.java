@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.lexer.E3Cont.E3ContType;
 import mjc.type_checker.SymTable;
@@ -25,6 +26,7 @@ public class E2Cont extends SimpleNode {
 			if (!type.isInt() || !type2.isInt()) {
 				throw new TypeError("Invalid types for < comparison: " + type.toShortString() + " and " + type2.toShortString());
 			}
+			JasminPrinter.print
 			return ((E2Cont)children[1]).pass2(symTable, Type.createBooleanType());
 		} else {
 			return type;

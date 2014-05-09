@@ -70,7 +70,11 @@ public class JasminPrinter {
 	}
 
 	public static void print_dup() {
-		out.print("dup");
+		out.println("dup");
+	}
+	
+	public static void print_iand() {
+		out.println("iand");
 	}
 
 	public static void print_baload() {
@@ -90,7 +94,7 @@ public class JasminPrinter {
 	}
 
 	public static void print_aload(int index) {
-		out.print("aload " + index);
+		out.println("aload " + index);
 	}
 
 	public static void print_areturn() {
@@ -107,10 +111,6 @@ public class JasminPrinter {
 
 	public static void print_new(String object) {
 		out.println("new " + object);
-	}
-
-	public static void print_newarray(String type) {
-		out.println("newarray " + type);
 	}
 
 	public static void print_anewarray() {
@@ -133,8 +133,12 @@ public class JasminPrinter {
 		out.println("iaload");
 	}
 
-	public static void print_iastore(int index) {
-		out.println("iastore " + index);
+	public static void print_iastore() {
+		out.println("iastore");
+	}
+	
+	public static void print_newarray() {
+		out.println("newarray int");
 	}
 
 	public static void print_if_acmpeq(int bb1, int bb2) {
@@ -147,6 +151,10 @@ public class JasminPrinter {
 
 	public static void print_if_icmpeq(int bb1, int bb2) {
 		out.println("if_icmpeq " + bb1 + " " + bb2);
+	}
+	
+	public static void print_if_icmplt(int bb1, int bb2) {
+		out.println("if_icmplt");
 	}
 
 	public static void print_if_icmpge(int bb1, int bb2) {

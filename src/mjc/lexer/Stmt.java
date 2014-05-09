@@ -82,13 +82,14 @@ public class Stmt extends SimpleNode {
 			if (assignVariable.getType().isInt() || assignVariable.getType().isBoolean()) {
 				JasminPrinter.print_istore(symTable.getVariableIndex(assignVariable.getName()));
 			} else {
-				//TODO
+				JasminPrinter.print_astore(symTable.getVariableIndex(assignVariable.getName()));
 			}
 		} else if (type == StmtType.ARRAY_ASSIGN) {
 			VarDecl assignVariable = symTable.getVariableNode(name);
 			if (!assignVariable.getType().isIntArray()) {
 				throw new TypeError("Trying to index non-array: " + assignVariable.getType().toShortString());
 			}
+			JasminPrinter.print_aload(symTable.getVariableIndex(assignVariable.getName()));
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.isInt()) {
 				throw new TypeError("Non-int type for array index: " + type.toShortString());
@@ -97,6 +98,7 @@ public class Stmt extends SimpleNode {
 			if (!type2.isInt()) {
 				throw new TypeError("Invalid type for array assignment: " + type2.toShortString());
 			}
+			JasminPrinter.print_iastore();
 		} else {
 			throw new DummyException("Unknown Stmt type");
 		}

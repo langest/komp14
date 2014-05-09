@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
 
@@ -47,11 +48,13 @@ public class E5Cont extends SimpleNode {
 			if (!indexType.isInt()) {
 				throw new TypeError("Non-int type for array index");
 			}
+			JasminPrinter.print_iaload();
 			return Type.createIntType();
 		} else if (type == E5ContType.LENGTH) {
 			if (!inputType.isIntArray()) {
 				throw new TypeError("Non-array type for length");
 			}
+			JasminPrinter.print_arraylength();
 			return Type.createIntType();
 		} else if (type == E5ContType.METHOD_INVOCATION) {
 			if (!inputType.isCustom()) {

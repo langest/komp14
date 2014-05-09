@@ -44,9 +44,9 @@ class E6 extends SimpleNode {
 	public Type pass2(SymTable symTable) {
 		if (type == E6Type.ID) {
 			VarDecl varDecl = symTable.getVariableNode(image);
-			if (varDecl.getType().isCustom()) {
+			if (varDecl.getType().isCustom() || varDecl.getType().isIntArray()) {
 				JasminPrinter.print_aload(symTable.getVariableIndex(varDecl.getName()));
-			} else {
+			}else {
 				JasminPrinter.print_iload(symTable.getVariableIndex(varDecl.getName()));
 			}
 			return varDecl.getType();
@@ -68,12 +68,14 @@ class E6 extends SimpleNode {
 		} else if (type == E6Type.PAREN) {
 			return ((Exp)children[0]).pass2(symTable);
 		} else if (type == E6Type.THIS) {
+			JasminPrinter.print_aload(0);
 			return Type.createCustomType(symTable.getCurrentClass().getName());
 		} else if (type == E6Type.NEW_INT_ARRAY) {
 			Type arraySize = ((Exp)children[0]).pass2(symTable);
 			if (!arraySize.isInt()) {
 				throw new TypeError("Non-int argument for array initialization");
 			}
+			JasminPrinter.print_newarray();
 			return Type.createIntArrayType();
 		} else if (type == E6Type.NEW_ID) {
 			ClassDecl classDecl = symTable.getClassNode(image);
