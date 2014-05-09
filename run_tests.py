@@ -49,9 +49,9 @@ def test_execute(test_category, file_name):
         os.remove(file_name+".tmp")
     return res
 
-test_categories = [ Test("compile"),
+test_categories = [ #Test("compile"),
                     #Test("noncompile", compile_success=False),
-                    #Test("execute", execute=True)
+                    Test("execute", execute=True)
 									]
 
 print "Starting build..."
