@@ -29,12 +29,16 @@ def test_compile(test_category, file_name):
 
 def test_execute(test_category, file_name):
     main_class = get_main_class_name(os.path.join(TEST_DIR, test_category, file_name))
+    ret_code = subprocess.call(["java", "-jar", "jasmin.jar", main_class+".j"], stdout=DEVNULL, stderr=DEVNULL)
+    if ret_code:
+        return False
     res = True
     ret_code = subprocess.call(["java", main_class], stdout=open(file_name+".tmp", "w"), stderr=DEVNULL)
     if ret_code:
         res = False
     lines1 = open(os.path.join(TEST_DIR, test_category, file_name[:-5])+".out", "r").readlines()
     lines2 = open(file_name+".tmp", "r").readlines()
+    
     if (len(lines1) != len(lines2)):
         res = False
     else:
@@ -45,7 +49,9 @@ def test_execute(test_category, file_name):
         os.remove(file_name+".tmp")
     return res
 
-test_categories = [Test("compile"), Test("noncompile", compile_success=False), Test("execute", execute=True)]
+test_categories = [ #Test("compile"),
+                    #Test("noncompile", compile_success=False),
+                    Test("execute", execute=True)]
 
 print "Starting build..."
 build_error = subprocess.call("ant", stdout=DEVNULL)
