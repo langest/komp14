@@ -26,7 +26,7 @@ public class JasminPrinter {
 		out.println("aload_0");
 		out.println("invokespecial java/lang/Object/<init>()V");
 		out.println("return");
-		out.println(".end method");
+		closeMethod();
 	}
 
 	/*public static void openMethod() {
