@@ -26,7 +26,13 @@ public class E2Cont extends SimpleNode {
 			if (!type.isInt() || !type2.isInt()) {
 				throw new TypeError("Invalid types for < comparison: " + type.toShortString() + " and " + type2.toShortString());
 			}
-			JasminPrinter.print
+			int nextLabel = JasminPrinter.getNextLabel();
+			JasminPrinter.print_if_icmplt(nextLabel);
+			JasminPrinter.print_ldc(0);
+			JasminPrinter.print_goto(nextLabel+1);
+			JasminPrinter.print_label();
+			JasminPrinter.print_ldc(1);
+			JasminPrinter.print_label();
 			return ((E2Cont)children[1]).pass2(symTable, Type.createBooleanType());
 		} else {
 			return type;

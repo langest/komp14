@@ -5,7 +5,8 @@ import java.util.*;
 
 public class JasminPrinter {
 	private static PrintWriter out;
-
+	private static int labelCounter = 1;
+	
 	public static void openClass(String className) throws IOException {
 		out = new PrintWriter(new FileWriter(className+".j"));
 		out.println(".class public " + className);
@@ -153,8 +154,12 @@ public class JasminPrinter {
 		out.println("if_icmpeq " + bb1 + " " + bb2);
 	}
 	
-	public static void print_if_icmplt(int bb1, int bb2) {
-		out.println("if_icmplt");
+	public static void print_if_icmplt(int label) {
+		out.println("if_icmplt " + label);
+	}
+	
+	public static void print_goto(int label) {
+		out.println("goto " + label);
 	}
 
 	public static void print_if_icmpge(int bb1, int bb2) {
@@ -204,6 +209,15 @@ public class JasminPrinter {
 
 	public static void print_imul() {
 		out.println("imul");
+	}
+	
+	public static void print_label() {
+		out.print(labelCounter + ": ");
+		labelCounter++;
+	}
+	
+	public static int getNextLabel() {
+		return labelCounter;
 	}
 
 	public static void print_ireturn() {
