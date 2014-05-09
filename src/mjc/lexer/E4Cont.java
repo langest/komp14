@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
 
@@ -20,6 +21,7 @@ public class E4Cont extends SimpleNode {
 			if (!type.isInt() || !type2.isInt()) {
 				throw new TypeError("Invalid types for multiplication: " + type.toShortString() + " and " + type2.toShortString());
 			}
+			JasminPrinter.print_imul();
 			return ((E4Cont)children[1]).pass2(symTable, type2);
 		}
 		return type;

@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
 
@@ -35,6 +36,7 @@ public class E5 extends SimpleNode {
 			if (!type.isBoolean()) {
 				throw new TypeError("Invalid type for operator !: " + type.toShortString());
 			}
+			JasminPrinter.print_ineg();
 			return type;
 		} else {
 			Type type = ((E6)children[0]).pass2(symTable);

@@ -162,6 +162,10 @@ public class JasminPrinter {
 		out.println("goto " + label);
 	}
 
+	public static void print_ineg() {
+		out.println("ineg");
+	}
+	
 	public static void print_if_icmpge(int bb1, int bb2) {
 		out.println("if_icmpge " + bb1 + " " + bb2);
 	}

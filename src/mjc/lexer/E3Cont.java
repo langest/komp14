@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
 
@@ -36,12 +37,14 @@ class E3Cont extends SimpleNode {
 			if (!inputType.isInt() || !type2.isInt()) {
 				throw new TypeError("Invalid types for addition: " + inputType.toShortString() + " and " + type2.toShortString());
 			}
+			JasminPrinter.print_iadd();
 			return ((E3Cont)children[1]).pass2(symTable, type2);
 		} else if (type == E3ContType.MINUS) {
 			Type type2 = ((E4)children[0]).pass2(symTable);
 			if (!inputType.isInt() || !type2.isInt()) {
 				throw new TypeError("Invalid types for subtraction: " + inputType.toShortString() + " and " + type2.toShortString());
 			}
+			JasminPrinter.print_isub();
 			return ((E3Cont)children[1]).pass2(symTable, type2);
 		} else {
 			return inputType;
