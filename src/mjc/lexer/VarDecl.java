@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.type_checker.SymTable;
 
 public class VarDecl extends SimpleNode {
@@ -37,6 +38,7 @@ public class VarDecl extends SimpleNode {
 		VarDecl res = new VarDecl(LexerTreeConstants.JJTVARDECL);
 		res.children = new Type[] {type};
 		res.setName(name);
+		
 		return res;
 	}
 

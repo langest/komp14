@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.DummyException;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
@@ -62,15 +63,26 @@ public class Stmt extends SimpleNode {
 			}
 			((Stmt)children[1]).pass2(symTable);
 		} else if (type == StmtType.PRINT) {
+			JasminPrinter.openPrint();
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.isBoolean() && !type.isInt()) {
 				throw new TypeError("Invalid type for printing: " + type.toShortString());
+			}
+			if (type.isBoolean()) {
+				JasminPrinter.closePrint("Z");
+			} else {//is int
+				JasminPrinter.closePrint("I");
 			}
 		} else if (type == StmtType.ASSIGN) {
 			VarDecl assignVariable = symTable.getVariableNode(name);
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.equals(assignVariable.getType())) {
 				throw new TypeError("Incompatible types for variable assignment: " + type.toShortString() + " and " + assignVariable.getType().toShortString());
+			}
+			if (assignVariable.getType().isInt() || assignVariable.getType().isBoolean()) {
+				JasminPrinter.print_istore(symTable.getVariableIndex(assignVariable.getName()));
+			} else {
+				//TODO
 			}
 		} else if (type == StmtType.ARRAY_ASSIGN) {
 			VarDecl assignVariable = symTable.getVariableNode(name);

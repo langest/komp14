@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.DummyException;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
@@ -43,17 +44,26 @@ class E6 extends SimpleNode {
 	public Type pass2(SymTable symTable) {
 		if (type == E6Type.ID) {
 			VarDecl varDecl = symTable.getVariableNode(image);
+			if (varDecl.getType().isCustom()) {
+				JasminPrinter.print_aload(symTable.getVariableIndex(varDecl.getName()));
+			} else {
+				JasminPrinter.print_iload(symTable.getVariableIndex(varDecl.getName()));
+			}
 			return varDecl.getType();
 		} else if (type == E6Type.INT_LIT) {
+			int val;
 			try {
-				int val = Integer.parseInt(image);
+				val = Integer.parseInt(image);
 			} catch (NumberFormatException e) {
 				throw new DummyException("Invalid value for integer literal: " + image);
 			}
+			JasminPrinter.print_ldc(val);
 			return Type.createIntType();
 		} else if (type == E6Type.TRUE) {
+			JasminPrinter.print_ldc(1);
 			return Type.createBooleanType();
 		} else if (type == E6Type.FALSE) {
+			JasminPrinter.print_ldc(0);
 			return Type.createBooleanType();
 		} else if (type == E6Type.PAREN) {
 			return ((Exp)children[0]).pass2(symTable);
