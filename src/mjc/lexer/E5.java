@@ -36,9 +36,8 @@ public class E5 extends SimpleNode {
 			if (!type.isBoolean()) {
 				throw new TypeError("Invalid type for operator !: " + type.toShortString());
 			}
-			JasminPrinter.print_ineg();
 			JasminPrinter.print_ldc(1);
-			JasminPrinter.print_iand();
+			JasminPrinter.print_ixor();
 			return type;
 		} else {
 			Type type = ((E6)children[0]).pass2(symTable);

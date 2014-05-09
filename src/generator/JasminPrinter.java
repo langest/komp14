@@ -77,6 +77,10 @@ public class JasminPrinter {
 	public static void print_iand() {
 		out.println("iand");
 	}
+	
+	public static void print_ixor() {
+		out.println("ixor");
+	}
 
 	public static void print_baload() {
 		out.println("baload");
