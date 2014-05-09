@@ -11,6 +11,6 @@ class Bool {
 		System.out.println(0<1);
 		System.out.println(a&&b);
 		System.out.println(1-1<1);
-		System.out.println(!(1<2);
+		System.out.println(!(1<2));
 	}
 }
