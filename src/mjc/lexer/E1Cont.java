@@ -21,11 +21,20 @@ public class E1Cont extends SimpleNode {
 	
 	public Type pass2(SymTable symTable, Type type) {
 		if (children != null) {
+			int label = JasminPrinter.incrementLabel();
+			JasminPrinter.print_ifeq(label);
 			Type type2 = ((E2)children[0]).pass2(symTable);
 			if (!type.isBoolean() || !type2.isBoolean()) {
 				throw new TypeError("Invalid types for && operation: " + type.toShortString() + " and " + type2.toShortString());
 			}
-			JasminPrinter.print_iand();
+			int nextLabel = JasminPrinter.incrementLabel();
+			JasminPrinter.print_ifeq(label);
+			JasminPrinter.print_ldc(1);
+			JasminPrinter.print_goto(nextLabel);
+			JasminPrinter.print_label(label);
+			JasminPrinter.print_ldc(0);
+			JasminPrinter.print_label(nextLabel);
+			JasminPrinter.print_nop();
 			return ((E1Cont)children[1]).pass2(symTable, type2);
 		} else {
 			return type;
