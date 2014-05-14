@@ -42,26 +42,41 @@ public class Stmt extends SimpleNode {
 	
 	public void pass2(SymTable symTable) {
 		if (type == StmtType.BRACES) {
-			symTable.openScope();
 			if (children != null) {
 				for (Node child : children) {
 					((Stmt)child).pass2(symTable);
 				}
 			}
-			symTable.closeScope();
 		} else if (type == StmtType.IF_ELSE) {
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.isBoolean()) {
 				throw new TypeError("Expected boolean expression, got " + type.toShortString());
 			}
+			int label = JasminPrinter.incrementLabel();
+			JasminPrinter.print_ifeq(label);
 			((Stmt)children[1]).pass2(symTable);
+			
+			int nextLabel = JasminPrinter.incrementLabel();
+			JasminPrinter.print_goto(nextLabel);
+			JasminPrinter.print_label(label);
+			JasminPrinter.print_nop();
+			
 			((Stmt)children[2]).pass2(symTable);
+			JasminPrinter.print_label(nextLabel);
+			JasminPrinter.print_nop();
 		} else if (type == StmtType.WHILE) {
+			int label = JasminPrinter.getNextLabel();
+			JasminPrinter.print_label();
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.isBoolean()) {
 				throw new TypeError("Expected boolean expression, got " + type.toShortString());
 			}
+			int nextLabel = JasminPrinter.incrementLabel();
+			JasminPrinter.print_ifeq(nextLabel);
 			((Stmt)children[1]).pass2(symTable);
+			JasminPrinter.print_goto(label);
+			JasminPrinter.print_label(nextLabel);
+			JasminPrinter.print_nop();
 		} else if (type == StmtType.PRINT) {
 			JasminPrinter.openPrint();
 			Type type = ((Exp)children[0]).pass2(symTable);
@@ -75,14 +90,21 @@ public class Stmt extends SimpleNode {
 			}
 		} else if (type == StmtType.ASSIGN) {
 			VarDecl assignVariable = symTable.getVariableNode(name);
+			if (assignVariable.isField()) {
+				JasminPrinter.print_aload(0);
+			}
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.equals(assignVariable.getType())) {
 				throw new TypeError("Incompatible types for variable assignment: " + type.toShortString() + " and " + assignVariable.getType().toShortString());
 			}
-			if (assignVariable.getType().isInt() || assignVariable.getType().isBoolean()) {
-				JasminPrinter.print_istore(symTable.getVariableIndex(assignVariable.getName()));
+			if (assignVariable.isField()) {
+				JasminPrinter.print_putField(symTable.getCurrentClass(), assignVariable);
 			} else {
-				JasminPrinter.print_astore(symTable.getVariableIndex(assignVariable.getName()));
+				if (assignVariable.getType().isInt() || assignVariable.getType().isBoolean()) {
+					JasminPrinter.print_istore(symTable.getVariableIndex(assignVariable.getName()));
+				} else {
+					JasminPrinter.print_astore(symTable.getVariableIndex(assignVariable.getName()));
+				}
 			}
 		} else if (type == StmtType.ARRAY_ASSIGN) {
 			VarDecl assignVariable = symTable.getVariableNode(name);

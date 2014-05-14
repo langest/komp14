@@ -37,6 +37,18 @@ public class FormalList extends SimpleNode {
 			}
 		}
 	}
+	
+	public String getMethodTypeDescriptor() {
+		StringBuilder sb = new StringBuilder();
+		if (children != null) {
+			Type type = (Type)children[0];
+			sb.append(type.getTypeDescriptor());
+			for (int i = 1; i < children.length; i++) {
+				sb.append(((FormalRest)children[i]).getTypeDescriptor());
+			}
+		}
+		return sb.toString();
+	}
 
 	public String toString() {
 		return super.toString() + "(" + name + ")";

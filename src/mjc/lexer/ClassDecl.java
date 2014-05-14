@@ -59,6 +59,7 @@ public class ClassDecl extends SimpleNode {
 						throw new DummyException("Variable " + varDecl.getName() + " already declared in this scope");
 					}
 					variables.put(varDecl.getName(), varDecl);
+					varDecl.setIsField(true);
 				} else {
 					MethodDecl methodDecl = (MethodDecl) child;
 					String methodName = methodDecl.getName();
@@ -73,6 +74,10 @@ public class ClassDecl extends SimpleNode {
 	
 	public void pass2(SymTable symTable) throws IOException {
 		JasminPrinter.openClass(name);
+		for (VarDecl field : variables.values()) {
+			JasminPrinter.print_field(field);
+		}
+		JasminPrinter.printConstructor();
 		symTable.setCurrentClass(this);
 		if (children != null) {
 			for (Node child : children) {

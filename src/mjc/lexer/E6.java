@@ -44,10 +44,15 @@ class E6 extends SimpleNode {
 	public Type pass2(SymTable symTable) {
 		if (type == E6Type.ID) {
 			VarDecl varDecl = symTable.getVariableNode(image);
-			if (varDecl.getType().isCustom() || varDecl.getType().isIntArray()) {
-				JasminPrinter.print_aload(symTable.getVariableIndex(varDecl.getName()));
-			}else {
-				JasminPrinter.print_iload(symTable.getVariableIndex(varDecl.getName()));
+			if (varDecl.isField()) {
+				JasminPrinter.print_aload(0);
+				JasminPrinter.print_getField(symTable.getCurrentClass(), varDecl);
+			} else {
+				if (varDecl.getType().isCustom() || varDecl.getType().isIntArray()) {
+					JasminPrinter.print_aload(symTable.getVariableIndex(varDecl.getName()));
+				}else {
+					JasminPrinter.print_iload(symTable.getVariableIndex(varDecl.getName()));
+				}
 			}
 			return varDecl.getType();
 		} else if (type == E6Type.INT_LIT) {
@@ -79,6 +84,9 @@ class E6 extends SimpleNode {
 			return Type.createIntArrayType();
 		} else if (type == E6Type.NEW_ID) {
 			ClassDecl classDecl = symTable.getClassNode(image);
+			JasminPrinter.print_new(classDecl.getName());
+			JasminPrinter.print_dup();
+			JasminPrinter.print_invokespecial(classDecl.getName() + "/<init>()V");
 			return Type.createCustomType(classDecl.getName());
 		} else {
 			throw new DummyException("Unknown E6Type");

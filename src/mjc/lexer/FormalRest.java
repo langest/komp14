@@ -31,6 +31,10 @@ public class FormalRest extends SimpleNode {
 		symTable.addVariableNode(varDecl);
 	}
 	
+	public String getTypeDescriptor() {
+		return ((Type)children[0]).getTypeDescriptor();
+	}
+	
 	public String toString() {
 		return super.toString() + "(" + name + ")";
 	}

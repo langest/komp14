@@ -29,6 +29,7 @@ public class MainClass extends SimpleNode {
   
   public void pass2(SymTable symTable) throws IOException {
 	  JasminPrinter.openClass(name);
+	  JasminPrinter.printConstructor();
 	  JasminPrinter.openMainMethod();
 	  if (children != null) {
 		  for (Node child: children) {
@@ -40,9 +41,10 @@ public class MainClass extends SimpleNode {
 		  } 
 	  }
 	  // TODO calculate limits
+	  JasminPrinter.print_return();
+	  JasminPrinter.println("");
 	  JasminPrinter.print_limit_locals(150);
 	  JasminPrinter.print_limit_stack(150);
-	  JasminPrinter.print_return();
 	  JasminPrinter.closeMethod();
 	  JasminPrinter.closeClass();
   }

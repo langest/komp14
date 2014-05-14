@@ -2,6 +2,7 @@
 /* JavaCCOptions:MULTI=true,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package mjc.lexer;
 
+import generator.JasminPrinter;
 import mjc.errors.TypeError;
 import mjc.type_checker.SymTable;
 
@@ -25,20 +26,22 @@ class MethodDecl extends SimpleNode {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String toString() {
 		return super.toString() + "(" + name + ")";
 	}
-	
+
 	public Type getReturnType() {
 		return (Type)children[0];
 	}
-	
+
 	public FormalList getParameters() {
 		return (FormalList) children[1];
 	}
-	
+
 	public void pass2(SymTable symTable) {
+		JasminPrinter.openMethod(this);
+
 		((Type)children[0]).pass2(symTable);
 		((FormalList)children[1]).pass2(symTable);
 		for (int i = 2; i < children.length - 1; i++) {
@@ -52,6 +55,15 @@ class MethodDecl extends SimpleNode {
 		if (!returnType.equals(getReturnType())) {
 			throw new TypeError("Invalid return type for method " + name + ": got " + returnType.toShortString() + ", expected " + getReturnType().toShortString());
 		}
+		if (returnType.isInt() || returnType.isBoolean()) {
+			JasminPrinter.print_ireturn();
+		} else {
+			JasminPrinter.print_areturn();
+		}
+		JasminPrinter.println("");
+		JasminPrinter.print_limit_locals(150);
+		JasminPrinter.print_limit_stack(150);
+		JasminPrinter.closeMethod();
 	}
 
 }

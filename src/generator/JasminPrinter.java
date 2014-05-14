@@ -3,6 +3,10 @@ package generator;
 import java.io.*;
 import java.util.*;
 
+import mjc.lexer.ClassDecl;
+import mjc.lexer.MethodDecl;
+import mjc.lexer.VarDecl;
+
 public class JasminPrinter {
 	private static PrintWriter out;
 	private static int labelCounter = 1;
@@ -12,14 +16,13 @@ public class JasminPrinter {
 		out.println(".class public " + className);
 		out.println(".super java/lang/Object");
 		out.println();
-		printConstructor();
 	}
 
 	public static void openMainMethod() {
 		out.println(".method public static main([Ljava/lang/String;)V");
 	}
 
-	private static void printConstructor() { //TODO all lines needed?
+	public static void printConstructor() { //TODO all lines needed?
 		out.println(".method <init>()V");
 		out.println(".limit stack 1");
 		out.println(".limit locals 1");
@@ -29,9 +32,13 @@ public class JasminPrinter {
 		closeMethod();
 	}
 
-	/*public static void openMethod() {
-		out.println(".method");
-	}*/
+	public static void openMethod(MethodDecl methodDecl) {
+		out.print(".method public ");
+		out.print(methodDecl.getName() + "(");
+		out.print(methodDecl.getParameters().getMethodTypeDescriptor());
+		out.print(")");
+		out.println(methodDecl.getReturnType().getTypeDescriptor());
+	}
 
 	public static void print_ldc(int value) {
 		out.println("ldc " + value);
@@ -56,6 +63,18 @@ public class JasminPrinter {
 
 	public static void print_limit_locals(int limit) {
 		out.println(".limit locals " + limit);
+	}
+	
+	public static void print_field(VarDecl field) {
+		out.println(".field " + field.getName() + " " + field.getType().getTypeDescriptor());
+	}
+	
+	public static void print_getField(ClassDecl classDecl, VarDecl field) {
+		out.println("getfield " + classDecl.getName() + "/" + field.getName() + " " + field.getType().getTypeDescriptor());
+	}
+	
+	public static void print_putField(ClassDecl classDecl, VarDecl field) {
+		out.println("putfield " + classDecl.getName() + "/" + field.getName() + " " + field.getType().getTypeDescriptor());
 	}
 
 	public static void print_return() {
@@ -92,6 +111,10 @@ public class JasminPrinter {
 
 	public static void print_invokespecial(String method) {
 		out.println("invokespecial " + method);
+	}
+	
+	public static void print_invokevirtual(String method) {
+		out.println("invokevirtual " + method);
 	}
 
 	public static void print_astore(int index) {
@@ -145,18 +168,6 @@ public class JasminPrinter {
 	public static void print_newarray() {
 		out.println("newarray int");
 	}
-
-	public static void print_if_acmpeq(int bb1, int bb2) {
-		out.println("if_acmpeq " + bb1 + " " + bb2);
-	}
-
-	public static void print_if_acmpne(int bb1, int bb2) {
-		out.println("if_acmpne " + bb1+ " " + bb2);
-	}
-
-	public static void print_if_icmpeq(int bb1, int bb2) {
-		out.println("if_icmpeq " + bb1 + " " + bb2);
-	}
 	
 	public static void print_if_icmplt(int label) {
 		out.println("if_icmplt " + label);
@@ -169,46 +180,9 @@ public class JasminPrinter {
 	public static void print_ineg() {
 		out.println("ineg");
 	}
-	
-	public static void print_if_icmpge(int bb1, int bb2) {
-		out.println("if_icmpge " + bb1 + " " + bb2);
-	}
 
-	public static void print_if_icmpgt(int bb1, int bb2) {
-		out.println("if_icmpgt" + bb1 + " " + bb2);
-	}
-
-	public static void print_if_icmple(int bb1, int bb2) {
-		out.println("if_icmple " + bb1 + " " + bb2);
-	}
-
-	public static void print_ifeq(int bb1, int bb2) {
-		out.println("ifeq " + bb1 + " " + bb2);
-	}
-
-	public static void print_ifge(int bb1, int bb2) {
-		out.println("ifge " + bb1 + " " + bb2);
-	}
-
-	public static void print_ifgt(int bb1, int bb2) {
-		out.println("ifgt " + bb1 + " " + bb2);
-	}
-
-
-	public static void print_iflt(int bb1, int bb2) {
-		out.println("iflt " + bb1 + " " + bb2);
-	}
-
-	public static void print_ifne(int bb1, int bb2) {
-		out.println("ifne " + bb1 + " " + bb2);
-	}
-
-	public static void print_ifnonnull(int bb1, int bb2) {
-		out.println("ifnonnull " + bb1 + " " + bb2);
-	}
-
-	public static void print_ifnull(int bb1, int bb2) {
-		out.println("ifnull " + bb1 + " " + bb2);
+	public static void print_ifeq(int label) {
+		out.println("ifeq " + label);
 	}
 
 	public static void print_isub() {
@@ -219,13 +193,25 @@ public class JasminPrinter {
 		out.println("imul");
 	}
 	
+	public static void print_nop() {
+		out.println("nop");
+	}
+	
 	public static void print_label() {
 		out.print(labelCounter + ": ");
 		labelCounter++;
 	}
 	
+	public static void print_label(int label) {
+		out.print(label + ": ");
+	}
+	
 	public static int getNextLabel() {
 		return labelCounter;
+	}
+	
+	public static int incrementLabel() {
+		return labelCounter++;
 	}
 
 	public static void print_ireturn() {

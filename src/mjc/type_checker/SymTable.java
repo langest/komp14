@@ -7,14 +7,9 @@ import mjc.lexer.*;
 
 public class SymTable {
 	private Layer current;
-	private HashMap<String, Integer> mapping = new HashMap<String, Integer>();
-	private int index = 1;
 	
 	public int getVariableIndex(String varName) {
-		if (mapping.get(varName) == null) {
-			mapping.put(varName, index++);
-		}
-		return mapping.get(varName);
+		return current.variableIndex.get(varName);
 	}
 	
 	public SymTable() {
@@ -67,6 +62,7 @@ public class SymTable {
 			layer = layer.parent;
 		}
 		current.variables.put(varNode.getName(), varNode);
+		current.variableIndex.put(varNode.getName(), current.index++);
 	}
 	
 	public VarDecl getVariableNode(String variableName) {
@@ -96,12 +92,16 @@ public class SymTable {
 		private ClassDecl currentClass;
 		private HashMap<String, VarDecl> variables;
 		private HashMap<String, ClassDecl> classes;
+		private HashMap<String, Integer> variableIndex;
+		private int index;;
 		
 		private Layer() {
 			parent = null;
 			currentClass = null;
 			variables = new HashMap<String, VarDecl>();
 			classes = new HashMap<String, ClassDecl>();
+			variableIndex = new HashMap<String, Integer>();
+			index = 1;
 		}
 	}
 }

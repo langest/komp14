@@ -13,25 +13,28 @@ class Test:
         self.compile_success = compile_success
         self.execute = execute
 
-def get_main_class_name(file_name):
+def get_class_names(file_name):
     fin = open(file_name, "r")
-    first = True
+    res = []
+    tokens = []
     for line in fin:
         for token in line.split():
-            if not first:
-                return token.split("{")[0]
-            else:
-                first = False
-    return None
+            tokens.append(token.split("{")[0])
+    for i in xrange(len(tokens)):
+        if tokens[i] == "class":
+            res.append(tokens[i+1])
+    return res
 
 def test_compile(test_category, file_name):
     return subprocess.call(["java", "-jar", "mjc.jar", os.path.join(TEST_DIR, test_category, file_name)], stdout=DEVNULL, stderr=DEVNULL)
 
 def test_execute(test_category, file_name):
-    main_class = get_main_class_name(os.path.join(TEST_DIR, test_category, file_name))
-    ret_code = subprocess.call(["java", "-jar", "jasmin.jar", main_class+".j"], stdout=DEVNULL, stderr=DEVNULL)
-    if ret_code:
-        return False
+    class_names = get_class_names(os.path.join(TEST_DIR, test_category, file_name))
+    for class_name in class_names:
+        ret_code = subprocess.call(["java", "-jar", "jasmin.jar", class_name + ".j"], stdout=DEVNULL, stderr=DEVNULL)
+        if ret_code:
+            return False
+    main_class = class_names[0]
     res = True
     ret_code = subprocess.call(["java", main_class], stdout=open(file_name+".tmp", "w"), stderr=DEVNULL)
     if ret_code:

@@ -74,6 +74,18 @@ public class Type extends SimpleNode {
 		else return super.toString() + "(" + type + ")";
 	}
 	
+	public String getTypeDescriptor() {
+		if (type == TypeType.BOOLEAN) {
+			return "Z";
+		} else if (type == TypeType.INT) {
+			return "I";
+		} else if (type == TypeType.INT_ARRAY) {
+			return "[I";
+		} else {
+			return "L" + name + ";";
+		}
+	}
+	
 	public boolean equals(Object o) {
 		if (!(o instanceof Type)) return false;
 		Type t = (Type)o;

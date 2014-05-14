@@ -7,3 +7,4 @@ dist/*
 DESC
 *.j
 mjc.jar
+jasper/

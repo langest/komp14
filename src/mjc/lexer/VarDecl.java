@@ -8,9 +8,11 @@ import mjc.type_checker.SymTable;
 public class VarDecl extends SimpleNode {
 
 	private String name;
+	private boolean isField;
 
 	public VarDecl(int id) {
 		super(id);
+		isField = false;
 	}
 
 	public VarDecl(Lexer p, int id) {
@@ -23,6 +25,14 @@ public class VarDecl extends SimpleNode {
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setIsField(boolean isField) {
+		this.isField = isField;
+	}
+	
+	public boolean isField() {
+		return isField;
 	}
 	
 	public void pass2(SymTable symTable) {
