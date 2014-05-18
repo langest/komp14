@@ -13,7 +13,7 @@ public class JasminPrinter {
 	
 	public static void openClass(String className) throws IOException {
 		out = new PrintWriter(new FileWriter(className+".j"));
-		out.println(".class public _" + className);
+		out.println(".class public '" + className + "'");
 		out.println(".super java/lang/Object");
 		out.println();
 	}
@@ -66,15 +66,15 @@ public class JasminPrinter {
 	}
 	
 	public static void print_field(VarDecl field) {
-		out.println(".field _" + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println(".field '" + field.getName() + "' " + field.getType().getTypeDescriptor());
 	}
 	
 	public static void print_getField(ClassDecl classDecl, VarDecl field) {
-		out.println("getfield _" + classDecl.getName() + "/_" + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println("getfield " + classDecl.getName() + "/" + field.getName() + " " + field.getType().getTypeDescriptor());
 	}
 	
 	public static void print_putField(ClassDecl classDecl, VarDecl field) {
-		out.println("putfield _" + classDecl.getName() + "/_" + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println("putfield " + classDecl.getName() + "/" + field.getName() + " " + field.getType().getTypeDescriptor());
 	}
 
 	public static void print_return() {
@@ -110,12 +110,12 @@ public class JasminPrinter {
 	}
 	
 	public static void invokeConstructor(ClassDecl classDecl) {
-		out.println("invokespecial _" + classDecl.getName() + "/<init>()V");
+		out.println("invokespecial " + classDecl.getName() + "/<init>()V");
 	}
 	
 	public static void print_invokevirtual(ClassDecl classDecl, MethodDecl methodDecl) {
 		out.print("invokevirtual ");
-		out.print("_" + classDecl.getName() + "/");
+		out.print(classDecl.getName() + "/");
 		out.print(methodDecl.getName() + "(");
 		out.print(methodDecl.getParameters().getMethodTypeDescriptor());
 		out.println(")" + methodDecl.getReturnType().getTypeDescriptor());
@@ -142,7 +142,7 @@ public class JasminPrinter {
 	}
 
 	public static void print_new(ClassDecl classDecl) {
-		out.println("new _" + classDecl.getName());
+		out.println("new '" + classDecl.getName() + "'");
 	}
 
 	public static void print_anewarray() {

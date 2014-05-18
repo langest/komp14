@@ -34,7 +34,7 @@ def test_execute(test_category, file_name):
         ret_code = subprocess.call(["java", "-jar", "jasmin.jar", class_name + ".j"], stdout=DEVNULL, stderr=DEVNULL)
         if ret_code:
             return False
-    main_class = "_" + class_names[0]
+    main_class = class_names[0]
     res = True
     ret_code = subprocess.call(["java", main_class], stdout=open(file_name+".tmp", "w"), stderr=DEVNULL)
     if ret_code:
