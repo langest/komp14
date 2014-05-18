@@ -1,3 +1,4 @@
+// Test åööä
 class Easy {
 	public static void main(String[] args) {
 		int a;

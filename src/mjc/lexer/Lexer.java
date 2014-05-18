@@ -1166,11 +1166,6 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     finally { jj_save(5, xla); }
   }
 
-  static private boolean jj_3R_15() {
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_14() {
     if (jj_scan_token(INTEGER)) return true;
     return false;
@@ -1234,6 +1229,11 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   static private boolean jj_3_6() {
     if (jj_scan_token(NEW)) return true;
     if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_15() {
+    if (jj_scan_token(ID)) return true;
     return false;
   }
 
