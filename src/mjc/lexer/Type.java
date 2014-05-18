@@ -82,7 +82,7 @@ public class Type extends SimpleNode {
 		} else if (type == TypeType.INT_ARRAY) {
 			return "[I";
 		} else {
-			return "L" + name + ";";
+			return "L_" + name + ";";
 		}
 	}
 	

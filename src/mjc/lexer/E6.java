@@ -90,10 +90,10 @@ class E6 extends SimpleNode {
 			return Type.createIntArrayType();
 		} else if (type == E6Type.NEW_ID) {
 			ClassDecl classDecl = symTable.getClassNode(image);
-			JasminPrinter.print_new(classDecl.getName());
+			JasminPrinter.print_new(classDecl);
 			JasminPrinter.print_dup();
 			symTable.updateCurrentStackSize(2);
-			JasminPrinter.print_invokespecial(classDecl.getName() + "/<init>()V");
+			JasminPrinter.invokeConstructor(classDecl);
 			symTable.updateCurrentStackSize(-1);
 			return Type.createCustomType(classDecl.getName());
 		} else {

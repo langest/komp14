@@ -66,7 +66,7 @@ public class E5Cont extends SimpleNode {
 			MethodDecl methodDecl = classDecl.getMethod(name);
 			((ExpList)children[0]).pass2(symTable, methodDecl);
 			
-			JasminPrinter.print_invokevirtual(classDecl.getName() + "/" + methodDecl.getName() + "(" + methodDecl.getParameters().getMethodTypeDescriptor() + ")" + methodDecl.getReturnType().getTypeDescriptor());
+			JasminPrinter.print_invokevirtual(classDecl, methodDecl);
 			symTable.setCurrentStackSize(resultStackSize);
 			return ((E5Cont)children[1]).pass2(symTable, methodDecl.getReturnType());
 		} else {
