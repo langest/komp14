@@ -13,7 +13,7 @@ public class Stmt extends SimpleNode {
 	private String name;
 
 	public enum StmtType {
-		BRACES, IF_ELSE, WHILE, PRINT, ASSIGN, ARRAY_ASSIGN;
+		BRACES, IF, IF_ELSE, WHILE, PRINT, ASSIGN, ARRAY_ASSIGN;
 	}
 
 	public Stmt(int id) {
@@ -47,24 +47,28 @@ public class Stmt extends SimpleNode {
 					((Stmt)child).pass2(symTable);
 				}
 			}
-		} else if (type == StmtType.IF_ELSE) {
-			Type type = ((Exp)children[0]).pass2(symTable);
-			if (!type.isBoolean()) {
-				throw new TypeError("Expected boolean expression, got " + type.toShortString());
+		} else if (type == StmtType.IF || type == StmtType.IF_ELSE) {
+			Type expType = ((Exp)children[0]).pass2(symTable);
+			if (!expType.isBoolean()) {
+				throw new TypeError("Expected boolean expression, got " + expType.toShortString());
 			}
 			int label = JasminPrinter.incrementLabel();
 			JasminPrinter.print_ifeq(label);
 			symTable.updateCurrentStackSize(-1);
 			((Stmt)children[1]).pass2(symTable);
 			
-			int nextLabel = JasminPrinter.incrementLabel();
-			JasminPrinter.print_goto(nextLabel);
-			JasminPrinter.print_label(label);
-			JasminPrinter.print_nop();
-			
-			((Stmt)children[2]).pass2(symTable);
-			JasminPrinter.print_label(nextLabel);
-			JasminPrinter.print_nop();
+			if (type == StmtType.IF_ELSE) {
+				int nextLabel = JasminPrinter.incrementLabel();
+				JasminPrinter.print_goto(nextLabel);
+				JasminPrinter.print_label(label);
+				JasminPrinter.print_nop();
+				((Stmt)children[2]).pass2(symTable);
+				JasminPrinter.print_label(nextLabel);
+				JasminPrinter.print_nop();
+			} else {
+				JasminPrinter.print_label(label);
+				JasminPrinter.print_nop();
+			}
 		} else if (type == StmtType.WHILE) {
 			int label = JasminPrinter.getNextLabel();
 			JasminPrinter.print_label();

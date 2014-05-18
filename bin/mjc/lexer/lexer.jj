@@ -468,12 +468,8 @@ void Stmt():
                                   jjtc000 = false;
                                 }
 /*@egen*/ { jjtn000.setType(Stmt.StmtType.BRACES); } |
-    <IF> <LPAREN> Exp() <RPAREN> Stmt() <ELSE> Stmt()/*@bgen(jjtree)*/
-                                                      {
-                                                        jjtree.closeNodeScope(jjtn000, true);
-                                                        jjtc000 = false;
-                                                      }
-/*@egen*/ { jjtn000.setType(Stmt.StmtType.IF_ELSE); } |
+    <IF> <LPAREN> Exp() <RPAREN> Stmt() { jjtn000.setType(Stmt.StmtType.IF); }
+        [LOOKAHEAD(1) <ELSE> Stmt() { jjtn000.setType(Stmt.StmtType.IF_ELSE); }] |
     <WHILE> <LPAREN> Exp() <RPAREN> Stmt()/*@bgen(jjtree)*/
                                            {
                                              jjtree.closeNodeScope(jjtn000, true);
