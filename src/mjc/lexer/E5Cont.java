@@ -49,6 +49,7 @@ public class E5Cont extends SimpleNode {
 				throw new TypeError("Non-int type for array index");
 			}
 			JasminPrinter.print_iaload();
+			symTable.updateCurrentStackSize(-1);
 			return Type.createIntType();
 		} else if (type == E5ContType.LENGTH) {
 			if (!inputType.isIntArray()) {
@@ -60,11 +61,13 @@ public class E5Cont extends SimpleNode {
 			if (!inputType.isCustom()) {
 				throw new TypeError("Invalid type for method invocation: " + inputType.toShortString());
 			}
+			int resultStackSize = symTable.getCurrentStackSize();
 			ClassDecl classDecl = symTable.getClassNode(inputType.getName());
 			MethodDecl methodDecl = classDecl.getMethod(name);
 			((ExpList)children[0]).pass2(symTable, methodDecl);
 			
-			JasminPrinter.print_invokevirtual(classDecl.getName() + "/" + methodDecl.getName() + "(" + methodDecl.getParameters().getMethodTypeDescriptor() + ")" + methodDecl.getReturnType().getTypeDescriptor());
+			JasminPrinter.print_invokevirtual(classDecl, methodDecl);
+			symTable.setCurrentStackSize(resultStackSize);
 			return ((E5Cont)children[1]).pass2(symTable, methodDecl.getReturnType());
 		} else {
 			return inputType;

@@ -13,7 +13,7 @@ public class JasminPrinter {
 	
 	public static void openClass(String className) throws IOException {
 		out = new PrintWriter(new FileWriter(className+".j"));
-		out.println(".class public " + className);
+		out.println(".class public '" + className + "'");
 		out.println(".super java/lang/Object");
 		out.println();
 	}
@@ -66,7 +66,7 @@ public class JasminPrinter {
 	}
 	
 	public static void print_field(VarDecl field) {
-		out.println(".field " + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println(".field '" + field.getName() + "' " + field.getType().getTypeDescriptor());
 	}
 	
 	public static void print_getField(ClassDecl classDecl, VarDecl field) {
@@ -108,13 +108,17 @@ public class JasminPrinter {
 	public static void print_bastore() {
 		out.println("bastore");
 	}
-
-	public static void print_invokespecial(String method) {
-		out.println("invokespecial " + method);
+	
+	public static void invokeConstructor(ClassDecl classDecl) {
+		out.println("invokespecial " + classDecl.getName() + "/<init>()V");
 	}
 	
-	public static void print_invokevirtual(String method) {
-		out.println("invokevirtual " + method);
+	public static void print_invokevirtual(ClassDecl classDecl, MethodDecl methodDecl) {
+		out.print("invokevirtual ");
+		out.print(classDecl.getName() + "/");
+		out.print(methodDecl.getName() + "(");
+		out.print(methodDecl.getParameters().getMethodTypeDescriptor());
+		out.println(")" + methodDecl.getReturnType().getTypeDescriptor());
 	}
 
 	public static void print_astore(int index) {
@@ -137,8 +141,8 @@ public class JasminPrinter {
 		out.println("arraylength");
 	}
 
-	public static void print_new(String object) {
-		out.println("new " + object);
+	public static void print_new(ClassDecl classDecl) {
+		out.println("new '" + classDecl.getName() + "'");
 	}
 
 	public static void print_anewarray() {

@@ -4,6 +4,8 @@ package mjc.lexer;
 
 import java.io.IOException;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import generator.JasminPrinter;
 import mjc.type_checker.SymTable;
 
@@ -43,8 +45,8 @@ public class MainClass extends SimpleNode {
 	  // TODO calculate limits
 	  JasminPrinter.print_return();
 	  JasminPrinter.println("");
-	  JasminPrinter.print_limit_locals(150);
-	  JasminPrinter.print_limit_stack(150);
+	  JasminPrinter.print_limit_locals(symTable.getLocalCount());
+	  JasminPrinter.print_limit_stack(symTable.getMaxStackSize());
 	  JasminPrinter.closeMethod();
 	  JasminPrinter.closeClass();
   }

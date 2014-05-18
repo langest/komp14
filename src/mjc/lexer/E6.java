@@ -47,12 +47,14 @@ class E6 extends SimpleNode {
 			if (varDecl.isField()) {
 				JasminPrinter.print_aload(0);
 				JasminPrinter.print_getField(symTable.getCurrentClass(), varDecl);
+				symTable.updateCurrentStackSize(1);
 			} else {
 				if (varDecl.getType().isCustom() || varDecl.getType().isIntArray()) {
 					JasminPrinter.print_aload(symTable.getVariableIndex(varDecl.getName()));
 				}else {
 					JasminPrinter.print_iload(symTable.getVariableIndex(varDecl.getName()));
 				}
+				symTable.updateCurrentStackSize(1);
 			}
 			return varDecl.getType();
 		} else if (type == E6Type.INT_LIT) {
@@ -63,17 +65,21 @@ class E6 extends SimpleNode {
 				throw new DummyException("Invalid value for integer literal: " + image);
 			}
 			JasminPrinter.print_ldc(val);
+			symTable.updateCurrentStackSize(1);
 			return Type.createIntType();
 		} else if (type == E6Type.TRUE) {
 			JasminPrinter.print_ldc(1);
+			symTable.updateCurrentStackSize(1);
 			return Type.createBooleanType();
 		} else if (type == E6Type.FALSE) {
 			JasminPrinter.print_ldc(0);
+			symTable.updateCurrentStackSize(1);
 			return Type.createBooleanType();
 		} else if (type == E6Type.PAREN) {
 			return ((Exp)children[0]).pass2(symTable);
 		} else if (type == E6Type.THIS) {
 			JasminPrinter.print_aload(0);
+			symTable.updateCurrentStackSize(1);
 			return Type.createCustomType(symTable.getCurrentClass().getName());
 		} else if (type == E6Type.NEW_INT_ARRAY) {
 			Type arraySize = ((Exp)children[0]).pass2(symTable);
@@ -84,9 +90,11 @@ class E6 extends SimpleNode {
 			return Type.createIntArrayType();
 		} else if (type == E6Type.NEW_ID) {
 			ClassDecl classDecl = symTable.getClassNode(image);
-			JasminPrinter.print_new(classDecl.getName());
+			JasminPrinter.print_new(classDecl);
 			JasminPrinter.print_dup();
-			JasminPrinter.print_invokespecial(classDecl.getName() + "/<init>()V");
+			symTable.updateCurrentStackSize(2);
+			JasminPrinter.invokeConstructor(classDecl);
+			symTable.updateCurrentStackSize(-1);
 			return Type.createCustomType(classDecl.getName());
 		} else {
 			throw new DummyException("Unknown E6Type");

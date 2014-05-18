@@ -22,6 +22,7 @@ public class E4Cont extends SimpleNode {
 				throw new TypeError("Invalid types for multiplication: " + type.toShortString() + " and " + type2.toShortString());
 			}
 			JasminPrinter.print_imul();
+			symTable.updateCurrentStackSize(-1);
 			return ((E4Cont)children[1]).pass2(symTable, type2);
 		}
 		return type;
