@@ -2,6 +2,7 @@
 /*@egen*/options {
                
                    
+    UNICODE_INPUT=true;
 }
 
 PARSER_BEGIN(Lexer)
@@ -39,10 +40,11 @@ SKIP :
 | "\f"
 }
 
+
 //Comments
 SPECIAL_TOKEN :
 {
-  <SINGLE_LINE_COMMENT: "//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+  <SINGLE_LINE_COMMENT: "//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")?>
 | <FORMAL_COMMENT: "/**" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
 | <MULTI_LINE_COMMENT: "/*" (~["*"])* "*" ("*" | (~["*","/"] (~["*"])* "*"))* "/">
 }

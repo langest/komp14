@@ -66,15 +66,15 @@ public class JasminPrinter {
 	}
 	
 	public static void print_field(VarDecl field) {
-		out.println(".field " + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println(".field _" + field.getName() + " " + field.getType().getTypeDescriptor());
 	}
 	
 	public static void print_getField(ClassDecl classDecl, VarDecl field) {
-		out.println("getfield " + classDecl.getName() + "/" + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println("getfield " + classDecl.getName() + "/_" + field.getName() + " " + field.getType().getTypeDescriptor());
 	}
 	
 	public static void print_putField(ClassDecl classDecl, VarDecl field) {
-		out.println("putfield " + classDecl.getName() + "/" + field.getName() + " " + field.getType().getTypeDescriptor());
+		out.println("putfield " + classDecl.getName() + "/_" + field.getName() + " " + field.getType().getTypeDescriptor());
 	}
 
 	public static void print_return() {
