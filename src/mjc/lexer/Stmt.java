@@ -118,7 +118,12 @@ public class Stmt extends SimpleNode {
 			if (!assignVariable.getType().isIntArray()) {
 				throw new TypeError("Trying to index non-array: " + assignVariable.getType().toShortString());
 			}
-			JasminPrinter.print_aload(symTable.getVariableIndex(assignVariable.getName()));
+			if (assignVariable.isField()) {
+				JasminPrinter.print_aload(0);
+				JasminPrinter.print_getField(symTable.getCurrentClass(), assignVariable);
+			} else {
+				JasminPrinter.print_aload(symTable.getVariableIndex(assignVariable.getName()));
+			}
 			symTable.updateCurrentStackSize(1);
 			Type type = ((Exp)children[0]).pass2(symTable);
 			if (!type.isInt()) {

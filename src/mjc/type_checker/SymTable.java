@@ -9,6 +9,9 @@ public class SymTable {
 	private Layer current;
 	
 	public int getVariableIndex(String varName) {
+		if (!current.variableIndex.containsKey(varName)) {
+			System.out.println("Can't find variable " + varName);
+		}
 		return current.variableIndex.get(varName);
 	}
 	
