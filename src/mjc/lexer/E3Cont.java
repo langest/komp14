@@ -38,6 +38,7 @@ class E3Cont extends SimpleNode {
 				throw new TypeError("Invalid types for addition: " + inputType.toShortString() + " and " + type2.toShortString());
 			}
 			JasminPrinter.print_iadd();
+			symTable.updateCurrentStackSize(-1);
 			return ((E3Cont)children[1]).pass2(symTable, type2);
 		} else if (type == E3ContType.MINUS) {
 			Type type2 = ((E4)children[0]).pass2(symTable);
@@ -45,6 +46,7 @@ class E3Cont extends SimpleNode {
 				throw new TypeError("Invalid types for subtraction: " + inputType.toShortString() + " and " + type2.toShortString());
 			}
 			JasminPrinter.print_isub();
+			symTable.updateCurrentStackSize(-1);
 			return ((E3Cont)children[1]).pass2(symTable, type2);
 		} else {
 			return inputType;

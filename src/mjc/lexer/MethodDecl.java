@@ -61,8 +61,8 @@ class MethodDecl extends SimpleNode {
 			JasminPrinter.print_areturn();
 		}
 		JasminPrinter.println("");
-		JasminPrinter.print_limit_locals(150);
-		JasminPrinter.print_limit_stack(150);
+		JasminPrinter.print_limit_locals(symTable.getLocalCount());
+		JasminPrinter.print_limit_stack(symTable.getMaxStackSize());
 		JasminPrinter.closeMethod();
 	}
 

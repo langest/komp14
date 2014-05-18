@@ -27,6 +27,28 @@ public class SymTable {
 		current = current.parent;
 	}
 	
+	public int getLocalCount() {
+		return current.index;
+	}
+	
+	public int getMaxStackSize() {
+		return current.maxStackSize;
+	}
+	
+	public int getCurrentStackSize() {
+		return current.currentStackSize;
+	}
+	
+	public void setCurrentStackSize(int stackSize) {
+		current.currentStackSize = stackSize;
+		current.maxStackSize = Math.max(current.maxStackSize, current.currentStackSize);
+	}
+	
+	public void updateCurrentStackSize(int val) {
+		current.currentStackSize += val;
+		current.maxStackSize = Math.max(current.maxStackSize, current.currentStackSize);
+	}
+	
 	public void addClassNode(ClassDecl classNode) {
 		if (current.classes.containsKey(classNode.getName())) {
 			throw new DummyException("class name " + classNode.getName() + " was already declared in this scope");
@@ -93,7 +115,7 @@ public class SymTable {
 		private HashMap<String, VarDecl> variables;
 		private HashMap<String, ClassDecl> classes;
 		private HashMap<String, Integer> variableIndex;
-		private int index;;
+		private int index, currentStackSize, maxStackSize;
 		
 		private Layer() {
 			parent = null;
@@ -102,6 +124,8 @@ public class SymTable {
 			classes = new HashMap<String, ClassDecl>();
 			variableIndex = new HashMap<String, Integer>();
 			index = 1;
+			currentStackSize = 0;
+			maxStackSize = 0;
 		}
 	}
 }

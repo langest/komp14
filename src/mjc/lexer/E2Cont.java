@@ -33,6 +33,7 @@ public class E2Cont extends SimpleNode {
 			JasminPrinter.print_label();
 			JasminPrinter.print_ldc(1);
 			JasminPrinter.print_label();
+			symTable.updateCurrentStackSize(-1);
 			return ((E2Cont)children[1]).pass2(symTable, Type.createBooleanType());
 		} else {
 			return type;
