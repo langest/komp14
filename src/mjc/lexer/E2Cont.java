@@ -24,6 +24,18 @@ public class E2Cont extends SimpleNode {
 		LT, GT, LE, GE, EQ, NE;
 	}
 	
+	public static boolean areValidTypes(E2ContType op, Type type1, Type type2) {
+		if (!type1.equals(type2)) {
+			return false;
+		}
+		if (!(op == E2ContType.EQ || op == E2ContType.NE)) {
+			if (!type1.isInt()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public E2ContType getType() {
 		return type;
 	}
@@ -39,8 +51,8 @@ public class E2Cont extends SimpleNode {
 	public Type pass2(SymTable symTable, Type inputType) {
 		if (children != null) {
 			Type type2 = ((E3)children[0]).pass2(symTable);
-			if (!inputType.isInt() || !type2.isInt()) {
-				throw new TypeError("Invalid types for < comparison: " + inputType.toShortString() + " and " + type2.toShortString());
+			if (!areValidTypes(type, inputType, type2)) {
+				throw new TypeError("Invalid types for comparison: " + inputType.toShortString() + " and " + type2.toShortString());
 			}
 			int nextLabel = JasminPrinter.getNextLabel();
 			if (type == E2ContType.LT) {
@@ -52,9 +64,17 @@ public class E2Cont extends SimpleNode {
 			} else if (type == E2ContType.GE) {
 				JasminPrinter.print_if_icmpge(nextLabel);
 			} else if (type == E2ContType.EQ) {
-				JasminPrinter.print_if_icmpeq(nextLabel);
+				if (inputType.isInt() || inputType.isBoolean()) {
+					JasminPrinter.print_if_icmpeq(nextLabel);
+				} else {
+					JasminPrinter.print_if_acmpeq(nextLabel);
+				}
 			} else if (type == E2ContType.NE) {
-				JasminPrinter.print_if_icmpne(nextLabel);
+				if (inputType.isInt() || inputType.isBoolean()) {
+					JasminPrinter.print_if_icmpne(nextLabel);
+				} else {
+					JasminPrinter.print_if_acmpne(nextLabel);
+				}
 			} else {
 				throw new DummyException("Unknown comparison type");
 			}

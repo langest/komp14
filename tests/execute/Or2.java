@@ -1,12 +1,13 @@
 class Or2 {
 	public static void main(String[] args) {
 		A a;
+        int res;
 		a = new A();
 		if (a.reset()<1 && false || a.inc() || a.inc()) {
 			System.out.println(a.get());
 		} else {System.out.println(222);}
 		System.out.println(a.get());
-		a.set(2);
+		res = a.set(2);
 		if (true || a.reset()<1 && true) {
 			System.out.println(2);
 		} else {System.out.println(3434);}

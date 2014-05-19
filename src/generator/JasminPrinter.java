@@ -205,6 +205,14 @@ public class JasminPrinter {
 		out.println("if_icmpne " + label);
 	}
 	
+	public static void print_if_acmpeq(int label) {
+		out.println("if_acmpeq " + label);
+	}
+	
+	public static void print_if_acmpne(int label) {
+		out.println("if_acmpne " + label);
+	}
+	
 	public static void print_goto(int label) {
 		out.println("goto " + label);
 	}
