@@ -140,6 +140,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case BOOLEAN:
         case INTEGER:
+        case LONG:
         case ID:
           ;
           break;
@@ -287,6 +288,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case BOOLEAN:
       case INTEGER:
+      case LONG:
       case ID:
         Type();
         jj_consume_token(ID);
@@ -375,8 +377,21 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
                                       jjtree.closeNodeScope(jjtn000, true);
                                       jjtc000 = false;
                                       jjtn000.setType(Type.TypeType.INT_ARRAY);
+      } else if (jj_2_4(2)) {
+        jj_consume_token(LONG);
+        jj_consume_token(LSQPAREN);
+        jj_consume_token(RSQPAREN);
+                                   jjtree.closeNodeScope(jjtn000, true);
+                                   jjtc000 = false;
+                                  jjtn000.setType(Type.TypeType.LONG_ARRAY);
       } else {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case LONG:
+          jj_consume_token(LONG);
+             jjtree.closeNodeScope(jjtn000, true);
+             jjtc000 = false;
+             jjtn000.setType(Type.TypeType.LONG);
+          break;
         case BOOLEAN:
           jj_consume_token(BOOLEAN);
                 jjtree.closeNodeScope(jjtn000, true);
@@ -478,7 +493,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         break;
       default:
         jj_la1[10] = jj_gen;
-        if (jj_2_4(2)) {
+        if (jj_2_5(2)) {
           jj_consume_token(ID);
                         jjtn000.setName(token.image);
           jj_consume_token(ASSIGN);
@@ -661,12 +676,56 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case LT:
-        jj_consume_token(LT);
-        E3();
-        E2Cont();
+      case GT:
+      case LE:
+      case GE:
+      case EQ:
+      case NE:
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case LT:
+          jj_consume_token(LT);
+            jjtn000.setType(E2Cont.E2ContType.LT);
+          E3();
+          E2Cont();
+          break;
+        case GT:
+          jj_consume_token(GT);
+            jjtn000.setType(E2Cont.E2ContType.GT);
+          E3();
+          E2Cont();
+          break;
+        case LE:
+          jj_consume_token(LE);
+            jjtn000.setType(E2Cont.E2ContType.LE);
+          E3();
+          E2Cont();
+          break;
+        case GE:
+          jj_consume_token(GE);
+            jjtn000.setType(E2Cont.E2ContType.GE);
+          E3();
+          E2Cont();
+          break;
+        case EQ:
+          jj_consume_token(EQ);
+            jjtn000.setType(E2Cont.E2ContType.EQ);
+          E3();
+          E2Cont();
+          break;
+        case NE:
+          jj_consume_token(NE);
+            jjtn000.setType(E2Cont.E2ContType.NE);
+          E3();
+          E2Cont();
+          break;
+        default:
+          jj_la1[13] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[14] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -738,7 +797,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
                   jjtn000.setType(E3Cont.E3ContType.MINUS);
           break;
         default:
-          jj_la1[14] = jj_gen;
+          jj_la1[15] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -746,7 +805,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         E3Cont();
         break;
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[16] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -812,7 +871,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         E4Cont();
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[17] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -861,7 +920,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         E5Cont();
         break;
       default:
-        jj_la1[17] = jj_gen;
+        jj_la1[18] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -905,8 +964,8 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
                                                                                                                                                                           jjtn000.setType(E5Cont.E5ContType.ARRAY_ACCESS);
           break;
         default:
-          jj_la1[18] = jj_gen;
-          if (jj_2_5(2)) {
+          jj_la1[19] = jj_gen;
+          if (jj_2_6(2)) {
             jj_consume_token(DOT);
             jj_consume_token(LENGTH);
                                   jjtn000.setType(E5Cont.E5ContType.LENGTH);
@@ -922,7 +981,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
               E5Cont();
               break;
             default:
-              jj_la1[19] = jj_gen;
+              jj_la1[20] = jj_gen;
               jj_consume_token(-1);
               throw new ParseException();
             }
@@ -930,7 +989,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         }
         break;
       default:
-        jj_la1[20] = jj_gen;
+        jj_la1[21] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -1000,8 +1059,8 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
              jjtn000.setType(E6.E6Type.THIS);
         break;
       default:
-        jj_la1[21] = jj_gen;
-        if (jj_2_6(2)) {
+        jj_la1[22] = jj_gen;
+        if (jj_2_7(2)) {
           jj_consume_token(NEW);
           jj_consume_token(INTEGER);
           jj_consume_token(LSQPAREN);
@@ -1020,7 +1079,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
             jj_consume_token(RPAREN);
             break;
           default:
-            jj_la1[22] = jj_gen;
+            jj_la1[23] = jj_gen;
             jj_consume_token(-1);
             throw new ParseException();
           }
@@ -1070,14 +1129,14 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
             ;
             break;
           default:
-            jj_la1[23] = jj_gen;
+            jj_la1[24] = jj_gen;
             break label_10;
           }
           ExpRest();
         }
         break;
       default:
-        jj_la1[24] = jj_gen;
+        jj_la1[25] = jj_gen;
         ;
       }
     } catch (Throwable jjte000) {
@@ -1172,46 +1231,21 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     finally { jj_save(5, xla); }
   }
 
-  static private boolean jj_3R_14() {
-    if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_13() {
-    if (jj_scan_token(BOOLEAN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_5() {
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(LENGTH)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_3() {
-    if (jj_scan_token(INTEGER)) return true;
-    if (jj_scan_token(LSQPAREN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_12() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_3()) {
-    jj_scanpos = xsp;
-    if (jj_3R_13()) {
-    jj_scanpos = xsp;
-    if (jj_3R_14()) {
-    jj_scanpos = xsp;
-    if (jj_3R_15()) return true;
-    }
-    }
-    }
-    return false;
+  static private boolean jj_2_7(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_7(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(6, xla); }
   }
 
   static private boolean jj_3_1() {
     if (jj_3R_11()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_5() {
+    if (jj_scan_token(ID)) return true;
+    if (jj_scan_token(ASSIGN)) return true;
     return false;
   }
 
@@ -1221,25 +1255,74 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     return false;
   }
 
-  static private boolean jj_3_4() {
-    if (jj_scan_token(ID)) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_6() {
-    if (jj_scan_token(NEW)) return true;
-    if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
   static private boolean jj_3_2() {
     if (jj_3R_11()) return true;
     return false;
   }
 
-  static private boolean jj_3R_15() {
+  static private boolean jj_3_6() {
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(LENGTH)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_16() {
     if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_15() {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_14() {
+    if (jj_scan_token(BOOLEAN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_13() {
+    if (jj_scan_token(LONG)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_4() {
+    if (jj_scan_token(LONG)) return true;
+    if (jj_scan_token(LSQPAREN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_12() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_3()) {
+    jj_scanpos = xsp;
+    if (jj_3_4()) {
+    jj_scanpos = xsp;
+    if (jj_3R_13()) {
+    jj_scanpos = xsp;
+    if (jj_3R_14()) {
+    jj_scanpos = xsp;
+    if (jj_3R_15()) {
+    jj_scanpos = xsp;
+    if (jj_3R_16()) return true;
+    }
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3_3() {
+    if (jj_scan_token(INTEGER)) return true;
+    if (jj_scan_token(LSQPAREN)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_7() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_scan_token(INTEGER)) return true;
     return false;
   }
 
@@ -1255,7 +1338,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   static private Token jj_scanpos, jj_lastpos;
   static private int jj_la;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[25];
+  static final private int[] jj_la1 = new int[26];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -1263,12 +1346,12 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x10000000,0x6002000,0x0,0x20000000,0x6002000,0x20000,0x0,0x0,0x6002000,0x8000000,0x6002000,0x0,0x80000,0x40000,0x600000,0x600000,0x800000,0x100200,0x800,0x10000,0x10800,0x200,0x0,0x20000,0x100200,};
+      jj_la1_0 = new int[] {0x0,0x80002000,0x0,0x0,0x80002000,0x20000,0x0,0x0,0x80002000,0x0,0x80002000,0x0,0x1000000,0xfc0000,0xfc0000,0x18000000,0x18000000,0x20000000,0x4000200,0x800,0x10000,0x10800,0x200,0x0,0x20000,0x4000200,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x401,0x580,0x0,0x401,0x0,0x580,0x580,0x401,0x0,0x1,0x400,0x0,0x0,0x0,0x0,0x0,0xc2e,0x0,0x0,0x0,0xc0e,0x20,0x0,0xc2e,};
+      jj_la1_1 = new int[] {0x4,0x20041,0x2e000,0x8,0x20041,0x0,0x2e000,0x2e000,0x20041,0x2,0x41,0x20000,0x0,0x0,0x0,0x0,0x0,0x0,0x60b80,0x0,0x0,0x0,0x60380,0x800,0x0,0x60b80,};
    }
-  static final private JJCalls[] jj_2_rtns = new JJCalls[6];
+  static final private JJCalls[] jj_2_rtns = new JJCalls[7];
   static private boolean jj_rescan = false;
   static private int jj_gc = 0;
 
@@ -1290,7 +1373,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1306,7 +1389,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1324,7 +1407,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1336,7 +1419,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1353,7 +1436,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1364,7 +1447,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 25; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 26; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1476,12 +1559,12 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[44];
+    boolean[] la1tokens = new boolean[51];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 26; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -1493,7 +1576,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
         }
       }
     }
-    for (int i = 0; i < 44; i++) {
+    for (int i = 0; i < 51; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
@@ -1520,7 +1603,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
 
   static private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -1533,6 +1616,7 @@ public class Lexer/*@bgen(jjtree)*/implements LexerTreeConstants, LexerConstants
             case 3: jj_3_4(); break;
             case 4: jj_3_5(); break;
             case 5: jj_3_6(); break;
+            case 6: jj_3_7(); break;
           }
         }
         p = p.next;

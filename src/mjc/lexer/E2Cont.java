@@ -3,11 +3,15 @@
 package mjc.lexer;
 
 import generator.JasminPrinter;
+import mjc.errors.DummyException;
 import mjc.errors.TypeError;
 import mjc.lexer.E3Cont.E3ContType;
 import mjc.type_checker.SymTable;
 
 public class E2Cont extends SimpleNode {
+	
+	private E2ContType type;
+	
 	public E2Cont(int id) {
 		super(id);
 	}
@@ -16,18 +20,44 @@ public class E2Cont extends SimpleNode {
 		super(p, id);
 	}
 	
+	public enum E2ContType {
+		LT, GT, LE, GE, EQ, NE;
+	}
+	
+	public E2ContType getType() {
+		return type;
+	}
+
+	public void setType(E2ContType type) {
+		this.type = type;
+	}
+	
 	public String toString() {
 		return super.toString() + " " + (children != null ? "<" : "");
 	}
 	
-	public Type pass2(SymTable symTable, Type type) {
+	public Type pass2(SymTable symTable, Type inputType) {
 		if (children != null) {
 			Type type2 = ((E3)children[0]).pass2(symTable);
-			if (!type.isInt() || !type2.isInt()) {
-				throw new TypeError("Invalid types for < comparison: " + type.toShortString() + " and " + type2.toShortString());
+			if (!inputType.isInt() || !type2.isInt()) {
+				throw new TypeError("Invalid types for < comparison: " + inputType.toShortString() + " and " + type2.toShortString());
 			}
 			int nextLabel = JasminPrinter.getNextLabel();
-			JasminPrinter.print_if_icmplt(nextLabel);
+			if (type == E2ContType.LT) {
+				JasminPrinter.print_if_icmplt(nextLabel);
+			} else if (type == E2ContType.GT) {
+				JasminPrinter.print_if_icmpgt(nextLabel);
+			} else if (type == E2ContType.LE) {
+				JasminPrinter.print_if_icmple(nextLabel);				
+			} else if (type == E2ContType.GE) {
+				JasminPrinter.print_if_icmpge(nextLabel);
+			} else if (type == E2ContType.EQ) {
+				JasminPrinter.print_if_icmpeq(nextLabel);
+			} else if (type == E2ContType.NE) {
+				JasminPrinter.print_if_icmpne(nextLabel);
+			} else {
+				throw new DummyException("Unknown comparison type");
+			}
 			JasminPrinter.print_ldc(0);
 			JasminPrinter.print_goto(nextLabel+1);
 			JasminPrinter.print_label();
@@ -36,7 +66,7 @@ public class E2Cont extends SimpleNode {
 			symTable.updateCurrentStackSize(-1);
 			return ((E2Cont)children[1]).pass2(symTable, Type.createBooleanType());
 		} else {
-			return type;
+			return inputType;
 		}
 	}
 

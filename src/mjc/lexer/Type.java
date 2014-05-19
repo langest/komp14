@@ -19,7 +19,7 @@ public class Type extends SimpleNode {
 	}
 	
 	public enum TypeType {
-		INT, INT_ARRAY, BOOLEAN, CUSTOM;
+		INT, INT_ARRAY, LONG, LONG_ARRAY, BOOLEAN, CUSTOM;
 	}
 
 	public String getName() {
@@ -64,6 +64,14 @@ public class Type extends SimpleNode {
 		return type == TypeType.INT_ARRAY;
 	}
 	
+	public boolean isLong() {
+		return type == TypeType.LONG;
+	}
+	
+	public boolean isLongarray() {
+		return type == TypeType.LONG_ARRAY;
+	}
+	
 	public String toShortString() {
 		if (type == TypeType.CUSTOM) return name;
 		return type.toString();
@@ -105,6 +113,18 @@ public class Type extends SimpleNode {
 	public static Type createIntArrayType() {
 		Type res = new Type(LexerTreeConstants.JJTTYPE);
 		res.setType(Type.TypeType.INT_ARRAY);
+		return res;
+	}
+	
+	public static Type createLongType() {
+		Type res = new Type(LexerTreeConstants.JJTTYPE);
+		res.setType(Type.TypeType.LONG);
+		return res;
+	}
+	
+	public static Type createLongArrayType() {
+		Type res = new Type(LexerTreeConstants.JJTTYPE);
+		res.setType(Type.TypeType.LONG_ARRAY);
 		return res;
 	}
 	

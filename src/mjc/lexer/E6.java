@@ -22,7 +22,7 @@ class E6 extends SimpleNode {
 	}
 	
 	public enum E6Type {
-		ID, INT_LIT, TRUE, FALSE, PAREN, THIS, NEW_INT_ARRAY, NEW_ID;
+		ID, INT_LIT, LONG_LIT, TRUE, FALSE, PAREN, THIS, NEW_INT_ARRAY, NEW_LONG_ARRAY, NEW_ID;
 	}
 	
 	public void setType(E6Type type) {
@@ -67,6 +67,16 @@ class E6 extends SimpleNode {
 			JasminPrinter.print_ldc(val);
 			symTable.updateCurrentStackSize(1);
 			return Type.createIntType();
+		} else if (type == E6Type.LONG_LIT) {
+			long val;
+			try {
+				val = Long.parseLong(image);
+			} catch (NumberFormatException e) {
+				throw new DummyException("Invalid value for long literal: " + image);
+			}
+			JasminPrinter.print_ldc2_w(val);
+			symTable.updateCurrentStackSize(2);
+			return Type.createLongType();
 		} else if (type == E6Type.TRUE) {
 			JasminPrinter.print_ldc(1);
 			symTable.updateCurrentStackSize(1);
@@ -86,8 +96,15 @@ class E6 extends SimpleNode {
 			if (!arraySize.isInt()) {
 				throw new TypeError("Non-int argument for array initialization");
 			}
-			JasminPrinter.print_newarray();
+			JasminPrinter.print_newarray_int();
 			return Type.createIntArrayType();
+		} else if (type == E6Type.NEW_LONG_ARRAY) {
+			Type arraySize = ((Exp)children[0]).pass2(symTable);
+			if (!arraySize.isInt()) {
+				throw new TypeError("Non-int argument for array initialization");
+			}
+			JasminPrinter.print_newarray_long();
+			return Type.createLongArrayType();
 		} else if (type == E6Type.NEW_ID) {
 			ClassDecl classDecl = symTable.getClassNode(image);
 			JasminPrinter.print_new(classDecl);

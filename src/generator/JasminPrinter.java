@@ -43,13 +43,17 @@ public class JasminPrinter {
 	public static void print_ldc(int value) {
 		out.println("ldc " + value);
 	}
+	
+	public static void print_ldc2_w(long value) {
+		out.println("ldc2_w " + value);
+	}
 
 	public static void openPrint() {
 		out.println("getstatic java/lang/System/out Ljava/io/PrintStream;");
 	}
 
-	public static void closePrint(String IorZ) {
-		out.println("invokevirtual java/io/PrintStream/println(" + IorZ + ")V");
+	public static void closePrint(String printType) {
+		out.println("invokevirtual java/io/PrintStream/println(" + printType + ")V");
 	}
 
 	public static void closeMethod() {
@@ -169,12 +173,36 @@ public class JasminPrinter {
 		out.println("iastore");
 	}
 	
-	public static void print_newarray() {
+	public static void print_newarray_int() {
 		out.println("newarray int");
+	}
+	
+	public static void print_newarray_long() {
+		out.println("newarray long");
 	}
 	
 	public static void print_if_icmplt(int label) {
 		out.println("if_icmplt " + label);
+	}
+	
+	public static void print_if_icmpgt(int label) {
+		out.println("if_icmpgt " + label);
+	}
+	
+	public static void print_if_icmple(int label) {
+		out.println("if_icmple " + label);
+	}
+	
+	public static void print_if_icmpge(int label) {
+		out.println("if_icmpge " + label);
+	}
+	
+	public static void print_if_icmpeq(int label) {
+		out.println("if_icmpeq " + label);
+	}
+	
+	public static void print_if_icmpne(int label) {
+		out.println("if_icmpne " + label);
 	}
 	
 	public static void print_goto(int label) {

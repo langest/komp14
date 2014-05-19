@@ -62,8 +62,14 @@ TOKEN :
 | < DOT: "." >
 | < COMMA: "," >
 | < LT: "<" >
-| < AND : "&&" >   
-| < NOT : "!" >   
+| < GT: ">" >
+| < LE: "<=" >
+| < GE: ">=" >
+| < EQ: "==" >
+| < NE: "!=" >
+| < AND: "&&" > 
+| < OR: "||" >  
+| < NOT: "!" >   
 }
 
 //Operators
@@ -95,7 +101,7 @@ TOKEN : {
 TOKEN : {
 	< BOOLEAN: "boolean" >   
 | < INTEGER: "int" >   
-//| < LONG: "long" >
+| < LONG: "long" >
 | < STRING: "String" >
 }
 
@@ -103,7 +109,7 @@ TOKEN : {
 TOKEN : {
 	< ID: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","0"-"9","_"])* >
 | < INT_LIT: "0" | ["1"-"9"](["0"-"9"])* >
-//| < LONG_LIT: 0["l""L"] | ["1"-"9"]["0"-"9"]*["l""L"] >
+//| < LONG_LIT: ("0" ["l","L"]) | (["1"-"9"] (["0"-"9"])* ["l","L"]) >
 }
 
 
@@ -427,6 +433,19 @@ void Type():
                                       jjtc000 = false;
                                     }
 /*@egen*/ { jjtn000.setType(Type.TypeType.INT_ARRAY); } |
+    LOOKAHEAD(2)
+    <LONG> <LSQPAREN> <RSQPAREN>/*@bgen(jjtree)*/
+                                 {
+                                   jjtree.closeNodeScope(jjtn000, true);
+                                   jjtc000 = false;
+                                 }
+/*@egen*/ {jjtn000.setType(Type.TypeType.LONG_ARRAY); } |
+    <LONG>/*@bgen(jjtree)*/
+           {
+             jjtree.closeNodeScope(jjtn000, true);
+             jjtc000 = false;
+           }
+/*@egen*/ { jjtn000.setType(Type.TypeType.LONG); } |
     <BOOLEAN>/*@bgen(jjtree)*/
               {
                 jjtree.closeNodeScope(jjtn000, true);
@@ -655,7 +674,12 @@ void E2Cont():
 {/*@bgen(jjtree) E2Cont */
     try {
 /*@egen*/
-    (<LT> E3() E2Cont())?/*@bgen(jjtree)*/
+    (<LT> { jjtn000.setType(E2Cont.E2ContType.LT); } E3() E2Cont()
+    |<GT> { jjtn000.setType(E2Cont.E2ContType.GT); } E3() E2Cont()
+    |<LE> { jjtn000.setType(E2Cont.E2ContType.LE); } E3() E2Cont()
+    |<GE> { jjtn000.setType(E2Cont.E2ContType.GE); } E3() E2Cont()
+    |<EQ> { jjtn000.setType(E2Cont.E2ContType.EQ); } E3() E2Cont()
+    |<NE> { jjtn000.setType(E2Cont.E2ContType.NE); } E3() E2Cont())?/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -906,6 +930,7 @@ void E6():
                 jjtc000 = false;
               }
 /*@egen*/ { jjtn000.setType(E6.E6Type.INT_LIT); jjtn000.setImage(token.image); } |
+//    <LONG_LIT> { jjtThis.setType(E6.E6Type.LONG_LIT); jjtThis.setImage(token.image); } |
     <TRUE>/*@bgen(jjtree)*/
            {
              jjtree.closeNodeScope(jjtn000, true);
@@ -936,6 +961,7 @@ void E6():
                                                                jjtc000 = false;
                                                              }
 /*@egen*/ { jjtn000.setType(E6.E6Type.NEW_INT_ARRAY); } |
+//    LOOKAHEAD(2) <NEW> <LONG> <LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E6.E6Type.NEW_LONG_ARRAY); } |
     <NEW> <ID> { jjtn000.setType(E6.E6Type.NEW_ID); jjtn000.setImage(token.image); } <LPAREN> <RPAREN>/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {

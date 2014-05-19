@@ -58,8 +58,14 @@ TOKEN :
 | < DOT: "." >
 | < COMMA: "," >
 | < LT: "<" >
-| < AND : "&&" >   
-| < NOT : "!" >   
+| < GT: ">" >
+| < LE: "<=" >
+| < GE: ">=" >
+| < EQ: "==" >
+| < NE: "!=" >
+| < AND: "&&" > 
+| < OR: "||" >  
+| < NOT: "!" >   
 }
 
 //Operators
@@ -91,7 +97,7 @@ TOKEN : {
 TOKEN : {
 	< BOOLEAN: "boolean" >   
 | < INTEGER: "int" >   
-//| < LONG: "long" >
+| < LONG: "long" >
 | < STRING: "String" >
 }
 
@@ -99,7 +105,7 @@ TOKEN : {
 TOKEN : {
 	< ID: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","0"-"9","_"])* >
 | < INT_LIT: "0" | ["1"-"9"](["0"-"9"])* >
-//| < LONG_LIT: 0["l""L"] | ["1"-"9"]["0"-"9"]*["l""L"] >
+//| < LONG_LIT: ("0" ["l","L"]) | (["1"-"9"] (["0"-"9"])* ["l","L"]) >
 }
 
 
@@ -220,6 +226,9 @@ void Type():
 {
     LOOKAHEAD(2)
     <INTEGER> <LSQPAREN> <RSQPAREN> { jjtThis.setType(Type.TypeType.INT_ARRAY); } |
+    LOOKAHEAD(2)
+    <LONG> <LSQPAREN> <RSQPAREN> {jjtThis.setType(Type.TypeType.LONG_ARRAY); } |
+    <LONG> { jjtThis.setType(Type.TypeType.LONG); } |
     <BOOLEAN> { jjtThis.setType(Type.TypeType.BOOLEAN); } |
     <INTEGER> { jjtThis.setType(Type.TypeType.INT); } |
     <ID> { jjtThis.setType(Type.TypeType.CUSTOM); jjtThis.setName(token.image); }
@@ -266,7 +275,12 @@ void E2():
 void E2Cont():
 {}
 {
-    (<LT> E3() E2Cont())?
+    (<LT> { jjtThis.setType(E2Cont.E2ContType.LT); } E3() E2Cont()
+    |<GT> { jjtThis.setType(E2Cont.E2ContType.GT); } E3() E2Cont()
+    |<LE> { jjtThis.setType(E2Cont.E2ContType.LE); } E3() E2Cont()
+    |<GE> { jjtThis.setType(E2Cont.E2ContType.GE); } E3() E2Cont()
+    |<EQ> { jjtThis.setType(E2Cont.E2ContType.EQ); } E3() E2Cont()
+    |<NE> { jjtThis.setType(E2Cont.E2ContType.NE); } E3() E2Cont())?
 }
 
 void E3():
@@ -320,11 +334,13 @@ void E6():
 {
     <ID> { jjtThis.setType(E6.E6Type.ID); jjtThis.setImage(token.image); } |
     <INT_LIT> { jjtThis.setType(E6.E6Type.INT_LIT); jjtThis.setImage(token.image); } |
+//    <LONG_LIT> { jjtThis.setType(E6.E6Type.LONG_LIT); jjtThis.setImage(token.image); } |
     <TRUE> { jjtThis.setType(E6.E6Type.TRUE); } |
     <FALSE> { jjtThis.setType(E6.E6Type.FALSE); } |
     <LPAREN> Exp() <RPAREN> { jjtThis.setType(E6.E6Type.PAREN); } |
     <THIS> { jjtThis.setType(E6.E6Type.THIS); } |
     LOOKAHEAD(2) <NEW> <INTEGER> <LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E6.E6Type.NEW_INT_ARRAY); } |
+//    LOOKAHEAD(2) <NEW> <LONG> <LSQPAREN> Exp() <RSQPAREN> { jjtThis.setType(E6.E6Type.NEW_LONG_ARRAY); } |
     <NEW> <ID> { jjtThis.setType(E6.E6Type.NEW_ID); jjtThis.setImage(token.image); } <LPAREN> <RPAREN> 
 }
 

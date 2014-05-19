@@ -87,15 +87,19 @@ public class Stmt extends SimpleNode {
 			JasminPrinter.openPrint();
 			symTable.updateCurrentStackSize(1);
 			Type type = ((Exp)children[0]).pass2(symTable);
-			if (!type.isBoolean() && !type.isInt()) {
+			if (!type.isBoolean() && !type.isInt() && !type.isLong()) {
 				throw new TypeError("Invalid type for printing: " + type.toShortString());
 			}
 			if (type.isBoolean()) {
 				JasminPrinter.closePrint("Z");
-			} else {//is int
+				symTable.updateCurrentStackSize(-2);
+			} else if (type.isInt()) {
 				JasminPrinter.closePrint("I");
+				symTable.updateCurrentStackSize(-2);
+			} else {
+				JasminPrinter.closePrint("J");
+				symTable.updateCurrentStackSize(-3);
 			}
-			symTable.updateCurrentStackSize(-2);
 		} else if (type == StmtType.ASSIGN) {
 			VarDecl assignVariable = symTable.getVariableNode(name);
 			if (assignVariable.isField()) {
