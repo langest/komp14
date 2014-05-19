@@ -14,7 +14,7 @@ public class Exp extends SimpleNode {
 	}
 
 	public Type pass2(SymTable symTable) {
-		return ((E1)children[0]).pass2(symTable);
+		return ((E0)children[0]).pass2(symTable);
 	}
 
 }

@@ -13,19 +13,21 @@ public interface LexerTreeConstants
   public int JJTTYPE = 7;
   public int JJTSTMT = 8;
   public int JJTEXP = 9;
-  public int JJTE1 = 10;
-  public int JJTE1CONT = 11;
-  public int JJTE2 = 12;
-  public int JJTE2CONT = 13;
-  public int JJTE3 = 14;
-  public int JJTE3CONT = 15;
-  public int JJTE4 = 16;
-  public int JJTE4CONT = 17;
-  public int JJTE5 = 18;
-  public int JJTE5CONT = 19;
-  public int JJTE6 = 20;
-  public int JJTEXPLIST = 21;
-  public int JJTEXPREST = 22;
+  public int JJTE0 = 10;
+  public int JJTE0CONT = 11;
+  public int JJTE1 = 12;
+  public int JJTE1CONT = 13;
+  public int JJTE2 = 14;
+  public int JJTE2CONT = 15;
+  public int JJTE3 = 16;
+  public int JJTE3CONT = 17;
+  public int JJTE4 = 18;
+  public int JJTE4CONT = 19;
+  public int JJTE5 = 20;
+  public int JJTE5CONT = 21;
+  public int JJTE6 = 22;
+  public int JJTEXPLIST = 23;
+  public int JJTEXPREST = 24;
 
 
   public String[] jjtNodeName = {
@@ -39,6 +41,8 @@ public interface LexerTreeConstants
     "Type",
     "Stmt",
     "Exp",
+    "E0",
+    "E0Cont",
     "E1",
     "E1Cont",
     "E2",
@@ -54,4 +58,4 @@ public interface LexerTreeConstants
     "ExpRest",
   };
 }
-/* JavaCC - OriginalChecksum=f00ded46cf21e7ebdfa2e8cf8bc7b332 (do not edit this line) */
+/* JavaCC - OriginalChecksum=bd191d65f2529831ed16652351c9103c (do not edit this line) */

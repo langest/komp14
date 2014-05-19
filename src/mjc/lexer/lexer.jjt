@@ -249,7 +249,20 @@ void Stmt():
 void Exp():
 {}
 {
+    E0()
+}
+
+void E0():
+{}
+{
     E1()
+    E0Cont()
+}
+
+void E0Cont():
+{}
+{
+    (<OR> E1() E0Cont())?
 }
 
 void E1():

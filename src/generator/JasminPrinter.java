@@ -216,6 +216,10 @@ public class JasminPrinter {
 	public static void print_ifeq(int label) {
 		out.println("ifeq " + label);
 	}
+	
+	public static void print_ifne(int label) {
+		out.println("ifne " + label);
+	}
 
 	public static void print_isub() {
 		out.println("isub");

@@ -58,8 +58,14 @@ TOKEN :
 | < DOT: "." >
 | < COMMA: "," >
 | < LT: "<" >
-| < AND : "&&" >   
-| < NOT : "!" >   
+| < GT: ">" >
+| < LE: "<=" >
+| < GE: ">=" >
+| < EQ: "==" >
+| < NE: "!=" >
+| < AND: "&&" > 
+| < OR: "||" >  
+| < NOT: "!" >   
 }
 
 //Operators
@@ -243,7 +249,20 @@ void Stmt():
 void Exp():
 {}
 {
+    E0()
+}
+
+void E0():
+{}
+{
     E1()
+    E0Cont()
+}
+
+void E0Cont():
+{}
+{
+    (<OR> E1() E0Cont())?
 }
 
 void E1():
@@ -269,7 +288,12 @@ void E2():
 void E2Cont():
 {}
 {
-    (<LT> E3() E2Cont())?
+    (<LT> { jjtThis.setType(E2Cont.E2ContType.LT); } E3() E2Cont()
+    |<GT> { jjtThis.setType(E2Cont.E2ContType.GT); } E3() E2Cont()
+    |<LE> { jjtThis.setType(E2Cont.E2ContType.LE); } E3() E2Cont()
+    |<GE> { jjtThis.setType(E2Cont.E2ContType.GE); } E3() E2Cont()
+    |<EQ> { jjtThis.setType(E2Cont.E2ContType.EQ); } E3() E2Cont()
+    |<NE> { jjtThis.setType(E2Cont.E2ContType.NE); } E3() E2Cont())?
 }
 
 void E3():
